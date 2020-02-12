@@ -17,46 +17,60 @@ import { MENTALK_TYPES } from '../../common/const';
 
 // const useStyles = makeStyles(styles);
 
+const ChannelItem = ({ channel }) => {
+  const { name, coverUrl } = channel;
+  return (
+    <ListItem button>
+      <ListItemAvatar>
+        <Avatar alt={name} src={coverUrl} />
+      </ListItemAvatar>
+      <ListItemText primary={name} />
+    </ListItem>
+  );
+};
+
+const ChannelList = props => {
+  const { channels, loading } = props;
+
+  console.log('> ChannelList channels:', loading);
+  return (
+    <>
+      {channels && (
+        <div>
+          {MENTALK_TYPES.map((mentalkType, index) => (
+            <>
+              <List
+                subheader={
+                  <ListSubheader component="div">
+                    {mentalkType.name}
+                  </ListSubheader>
+                }
+                key={index}
+              >
+                {channels
+                  .filter(x => x.customType === mentalkType.type)
+                  .map(channel => (
+                    <ChannelItem
+                      key={channel.url}
+                      channel={channel}
+                    ></ChannelItem>
+                  ))}
+              </List>
+              <Divider />
+            </>
+          ))}
+        </div>
+      )}
+    </>
+  );
+};
+
 ChannelList.defaultProps = {
-  openChannels: [],
+  channels: [],
 };
 
 ChannelList.propTypes = {
-  openChannels: PropTypes.array.isRequired,
+  channels: PropTypes.array.isRequired,
 };
-
-function ChannelList(props) {
-  // const classes = useStyles();
-
-  console.log('ChannelList start');
-
-  const { openChannels } = props;
-  return (
-    <div className={'root'}>
-      {MENTALK_TYPES.map((mentalkType, index) => (
-        <>
-          <List
-            subheader={
-              <ListSubheader component="div">{mentalkType.name}</ListSubheader>
-            }
-            key={index}
-          >
-            {openChannels
-              .filter(x => x.customType === mentalkType.type)
-              .map(channel => (
-                <ListItem button key={channel.url}>
-                  <ListItemAvatar>
-                    <Avatar alt={channel.name} src={channel.coverUrl} />
-                  </ListItemAvatar>
-                  <ListItemText primary={channel.name} />
-                </ListItem>
-              ))}
-          </List>
-          <Divider />
-        </>
-      ))}
-    </div>
-  );
-}
 
 export default ChannelList;

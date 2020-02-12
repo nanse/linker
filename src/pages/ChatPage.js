@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Drawer, Grid } from '@material-ui/core';
-import ChannelList from '../components/channel/ChannelList';
+import GridContainer from '../components/Grid/GridContainer';
+import ChannelListContainer from '../containers/channel/ChannelListContainer';
+import { SendBirdAction } from '../lib/Sendbird/SendBirdAction';
+import { SendBirdConnection } from '../lib/Sendbird/SendBirdConnection';
+
+import {
+  getVariableFromUrl,
+  isEmpty,
+  redirectToIndex,
+} from '../lib/Sendbird/utils';
+
+const sb = new SendBirdAction();
 
 const dummyData = {
   channels: [
@@ -420,12 +431,45 @@ const dummyData = {
 };
 
 const PostPage = () => {
+  const [isConnection, setIsConnection] = useState(false);
+
+  const createConnectionHandler = () => {
+    const connectionManager = new SendBirdConnection();
+    connectionManager.onReconnectStarted = () => {
+      console.log('[SendBird JS SDK] Reconnect : Started');
+    };
+    connectionManager.onReconnectSucceeded = () => {
+      console.log('[SendBird JS SDK] Reconnect : Succeeded');
+    };
+    connectionManager.onReconnectFailed = () => {
+      console.log('[SendBird JS SDK] Reconnect : Failed');
+      connectionManager.remove();
+      redirectToIndex('SendBird Reconnect Failed...');
+    };
+  };
+
+  useEffect(() => {
+    const { userid, accesstoken } = getVariableFromUrl();
+    if (isEmpty(userid)) {
+      redirectToIndex('UserID must be required.');
+    }
+    sb.connect(userid, accesstoken)
+      .then(user => {
+        console.log('> user: ', user);
+        setIsConnection(true);
+        createConnectionHandler();
+      })
+      .catch(e => {
+        console.error(e);
+        // redirectToIndex("SendBird connection failed.");
+      });
+  }, []);
   return (
     <>
       <Drawer classes={{}} variant={'persistent'} open>
-        <ChannelList openChannels={dummyData.channels}></ChannelList>
+        {isConnection && <ChannelListContainer></ChannelListContainer>}
       </Drawer>
-      <Grid container>
+      <GridContainer>
         <Grid item xs={12} sm={12} md={6}>
           <h4>메인 톡</h4>
           <h4>메인 톡</h4>
@@ -440,7 +484,7 @@ const PostPage = () => {
           <h4>그외 톡</h4>
           <h4>그외 톡</h4>
         </Grid>
-      </Grid>
+      </GridContainer>
     </>
   );
 };
