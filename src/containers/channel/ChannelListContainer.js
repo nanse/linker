@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ChannelList from '../../components/channel/ChannelList';
-import { listChannels } from '../../modules/channel';
+import { listChannel, enter } from '../../modules/channel';
 
 const ChannelListContainer = () => {
   const dispatch = useDispatch();
@@ -11,10 +11,22 @@ const ChannelListContainer = () => {
     loading: loading['channel/LIST_CHANNEL'],
   }));
   useEffect(() => {
-    dispatch(listChannels({ isInit: true }));
+    dispatch(listChannel({ isInit: true }));
   }, [dispatch]);
 
-  return <ChannelList loading={loading} error={error} channels={channels} />;
+  const handleEnterChannel = url => {
+    console.log('> handleEnterChannel: ', url);
+    dispatch(enter(url));
+  };
+
+  return (
+    <ChannelList
+      loading={loading}
+      error={error}
+      channels={channels}
+      onEnterChannel={handleEnterChannel}
+    />
+  );
 };
 
 export default ChannelListContainer;

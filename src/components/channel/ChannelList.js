@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 // @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,10 +16,10 @@ import { MENTALK_TYPES } from '../../common/const';
 
 // const useStyles = makeStyles(styles);
 
-const ChannelItem = ({ channel }) => {
-  const { name, coverUrl } = channel;
+const ChannelItem = ({ channel, onEnterChannel }) => {
+  const { url, name, coverUrl } = channel;
   return (
-    <ListItem button>
+    <ListItem button onClick={() => onEnterChannel(url)}>
       <ListItemAvatar>
         <Avatar alt={name} src={coverUrl} />
       </ListItemAvatar>
@@ -29,48 +28,37 @@ const ChannelItem = ({ channel }) => {
   );
 };
 
-const ChannelList = props => {
-  const { channels, loading } = props;
-
-  console.log('> ChannelList channels:', loading);
+const ChannelList = ({ channels, loading, onEnterChannel }) => {
+  // console.log('> ChannelList channels:', loading);
   return (
     <>
-      {channels && (
+      {!loading && channels && (
         <div>
-          {MENTALK_TYPES.map((mentalkType, index) => (
-            <>
-              <List
-                subheader={
-                  <ListSubheader component="div">
-                    {mentalkType.name}
-                  </ListSubheader>
-                }
-                key={index}
-              >
-                {channels
-                  .filter(x => x.customType === mentalkType.type)
-                  .map(channel => (
-                    <ChannelItem
-                      key={channel.url}
-                      channel={channel}
-                    ></ChannelItem>
-                  ))}
-              </List>
-              <Divider />
-            </>
+          {MENTALK_TYPES.map(mentalkType => (
+            <List
+              key={mentalkType.type}
+              subheader={
+                <ListSubheader component="div">
+                  {mentalkType.name}
+                </ListSubheader>
+              }
+            >
+              {channels
+                .filter(x => x.customType === mentalkType.type)
+                .map(channel => (
+                  <ChannelItem
+                    key={channel.url}
+                    channel={channel}
+                    onEnterChannel={onEnterChannel}
+                  ></ChannelItem>
+                ))}
+              <Divider></Divider>
+            </List>
           ))}
         </div>
       )}
     </>
   );
-};
-
-ChannelList.defaultProps = {
-  channels: [],
-};
-
-ChannelList.propTypes = {
-  channels: PropTypes.array.isRequired,
 };
 
 export default ChannelList;

@@ -106,6 +106,7 @@ class SendBirdAction {
    * Channel
    */
   getChannel(channelUrl, isOpenChannel = true) {
+    console.log('> Sendbird getChannel');
     return new Promise((resolve, reject) => {
       if (isOpenChannel) {
         this.sb.OpenChannel.getChannel(channelUrl, (openChannel, error) => {
@@ -158,6 +159,7 @@ class SendBirdAction {
   }
 
   enter(channelUrl) {
+    console.log('> SendbirdAction Enter', this.sb);
     return new Promise((resolve, reject) => {
       this.sb.OpenChannel.getChannel(channelUrl, (openChannel, error) => {
         if (error) {
