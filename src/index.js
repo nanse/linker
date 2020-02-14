@@ -14,6 +14,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 
 // Theme
 import theme from './theme';
+import 'typeface-roboto';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
