@@ -1,7 +1,8 @@
 import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Grid } from '@material-ui/core';
+import { Grid, Divider } from '@material-ui/core';
 import GridContainer from '../../components/Grid/GridContainer';
+import ChatItem from '../../components/chat/ChatItem';
 
 import { listMainMessage, listOtherMessage } from '../../modules/message';
 
@@ -30,15 +31,18 @@ const ChatContainer = () => {
   return (
     <GridContainer>
       <Grid item xs={12} sm={12} md={6}>
+        <h3>Main</h3>
         {!mainLoading &&
           mainMessages.map(message => (
-            <h4 key={message.messageId}>{message.message}</h4>
+            <ChatItem key={message.messageId} message={message}></ChatItem>
           ))}
       </Grid>
       <Grid item xs={12} sm={12} md={6}>
+        <Divider />
+        <h3>Other</h3>
         {!otherLoading &&
           otherMessages.map(message => (
-            <h4 key={message.messageId}>{message.message}</h4>
+            <ChatItem key={message.messageId} message={message}></ChatItem>
           ))}
       </Grid>
     </GridContainer>
