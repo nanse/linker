@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-
-import { Drawer, Grid } from '@material-ui/core';
-import GridContainer from '../components/Grid/GridContainer';
+import { useSelector } from 'react-redux';
+import { Drawer } from '@material-ui/core';
 import ChannelListContainer from '../containers/channel/ChannelListContainer';
+import ChatContainer from '../containers/chat/ChatContainer';
 import { SendBirdAction } from '../lib/Sendbird/SendBirdAction';
 import { SendBirdConnection } from '../lib/Sendbird/SendBirdConnection';
 
@@ -433,6 +433,7 @@ const dummyData = {
 const PostPage = () => {
   const [isConnection, setIsConnection] = useState(false);
 
+  const { channel } = useSelector(state => state.channel);
   const createConnectionHandler = () => {
     const connectionManager = new SendBirdConnection();
     connectionManager.onReconnectStarted = () => {
@@ -469,22 +470,7 @@ const PostPage = () => {
       <Drawer classes={{}} variant={'persistent'} open>
         {isConnection && <ChannelListContainer></ChannelListContainer>}
       </Drawer>
-      <GridContainer>
-        <Grid item xs={12} sm={12} md={6}>
-          <h4>메인 톡</h4>
-          <h4>메인 톡</h4>
-          <h4>메인 톡</h4>
-          <h4>메인 톡</h4>
-          <h4>메인 톡</h4>
-        </Grid>
-        <Grid item xs={12} sm={12} md={6}>
-          <h4>그외 톡</h4>
-          <h4>그외 톡</h4>
-          <h4>그외 톡</h4>
-          <h4>그외 톡</h4>
-          <h4>그외 톡</h4>
-        </Grid>
-      </GridContainer>
+      {channel && <ChatContainer></ChatContainer>}
     </>
   );
 };

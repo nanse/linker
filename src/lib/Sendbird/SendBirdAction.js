@@ -159,7 +159,6 @@ class SendBirdAction {
   }
 
   enter(channelUrl) {
-    console.log('> SendbirdAction Enter', this.sb);
     return new Promise((resolve, reject) => {
       this.sb.OpenChannel.getChannel(channelUrl, (openChannel, error) => {
         if (error) {
@@ -292,9 +291,10 @@ class SendBirdAction {
   /**
    * Message
    */
-  getMessageList(channel, isInit = false) {
+  getMessageList(channel, isInit = false, customType) {
     if (isInit || isNull(this.previousMessageQuery)) {
       this.previousMessageQuery = channel.createPreviousMessageListQuery();
+      this.previousMessageQuery.customTypeFilter = customType;
     }
     return new Promise((resolve, reject) => {
       if (

@@ -18,6 +18,7 @@ const rootReducer = combineReducers({
   post,
   posts,
   channel,
+  message,
 });
 
 export function* rootSaga() {
@@ -28,6 +29,7 @@ export function* rootSaga() {
     postSaga(),
     postsSaga(),
     channelSaga(),
+    messageSaga(),
   ]);
 }
 

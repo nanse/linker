@@ -1,10 +1,12 @@
 import { createAction, handleActions } from 'redux-actions';
+import produce from 'immer';
 import createRequestSaga, {
   createRequestActionTypes,
 } from '../lib/createRequestSaga';
 import * as channelAPI from '../lib/api/channel'; // SendBirdAction으로 변경.
 
 import { takeLatest, put, call } from 'redux-saga/effects';
+// import { listMessage } from './message';
 
 const [
   LIST_CHANNEL,
@@ -34,27 +36,22 @@ export const getChannel = createAction(GET_CHANNEL, url => url);
 
 // Sagas
 const listChanelSaga = createRequestSaga(LIST_CHANNEL, channelAPI.listChannel);
-// const enterRequest = createRequestSaga(ENTER_CHANNEL, channelAPI.enter);
+
 function* enterSaga(action) {
   try {
     const { payload } = action;
     // 1. enter
-    const result = yield call(channelAPI.enter, payload);
-    yield put({
-      type: ENTER_CHANNEL_SUCCESS,
-      data: result,
-    });
+    yield call(channelAPI.enter, payload);
 
     // 2. getChannel
-    console.log('>11111111', payload);
     const channel = yield call(channelAPI.getChannel, payload);
-    console.log('>>', channel);
     yield put({
       type: GET_CHANNEL_SUCCESS,
-      data: channel,
+      payload: channel,
     });
 
     // 3. getMessage
+    // yield put(listMessage({ channel }));
   } catch (e) {
     console.error(e);
     yield put({
@@ -71,42 +68,37 @@ export function* channelSaga() {
 }
 
 const initialState = {
-  channels: null,
+  channels: [],
   channel: null,
   error: null,
 };
 
-const channel = handleActions(
+export default handleActions(
   {
-    [LIST_CHANNEL_SUCCESS]: (state, { payload: channels }) => {
-      console.log('> modules list channels:', channels);
-      return {
-        ...state,
-        channels,
-      };
-    },
-    [LIST_CHANNEL_FAILURE]: (state, { payload: error }) => ({
+    // 채널리스트 성공
+    // [LIST_CHANNEL_SUCCESS]: (state, { payload: channels }) => {
+    //   produce(state, draft => {
+    //     channels.forEach(channel => {
+    //       draft.channels.push(channel);
+    //     });
+    //   });
+    // },
+    [LIST_CHANNEL_SUCCESS]: (state, { payload: channels }) => ({
       ...state,
-      error,
+      channels,
     }),
-    [ENTER_CHANNEL_SUCCESS]: (state, { payload: channel }) => {
-      console.log('> modules enter:', channel);
-      return {
-        ...state,
-        channel,
-      };
-    },
+    [LIST_CHANNEL_FAILURE]: (state, { payload: error }) =>
+      produce(state, draft => {
+        draft.error = error;
+      }),
     [ENTER_CHANNEL_FAILURE]: (state, { payload: error }) => ({
       ...state,
       error,
     }),
-    [GET_CHANNEL_SUCCESS]: (state, { payload: channel }) => {
-      console.log('> modules getChannel:', channel);
-      return {
-        ...state,
-        channel,
-      };
-    },
+    [GET_CHANNEL_SUCCESS]: (state, { payload: channel }) => ({
+      ...state,
+      channel,
+    }),
     [GET_CHANNEL_FAILURE]: (state, { payload: error }) => ({
       ...state,
       error,
@@ -114,5 +106,3 @@ const channel = handleActions(
   },
   initialState,
 );
-
-export default channel;

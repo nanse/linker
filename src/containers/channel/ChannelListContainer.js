@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ChannelList from '../../components/channel/ChannelList';
 import { listChannel, enter } from '../../modules/channel';
@@ -14,10 +14,13 @@ const ChannelListContainer = () => {
     dispatch(listChannel({ isInit: true }));
   }, [dispatch]);
 
-  const handleEnterChannel = url => {
-    console.log('> handleEnterChannel: ', url);
-    dispatch(enter(url));
-  };
+  const handleEnterChannel = useCallback(
+    url => {
+      console.log('> handleEnterChannel: ', url);
+      dispatch(enter(url));
+    },
+    [dispatch],
+  );
 
   return (
     <ChannelList
