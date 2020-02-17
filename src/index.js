@@ -10,11 +10,10 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer, { rootSaga } from './modules';
 import { HelmetProvider } from 'react-helmet-async';
-import { MuiThemeProvider } from '@material-ui/core/styles';
 
-// Theme
-import theme from './theme';
 import 'typeface-roboto';
+
+console.log(process.env.API_URL);
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
@@ -26,13 +25,11 @@ sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <Provider store={store}>
-    <MuiThemeProvider theme={theme}>
-      <BrowserRouter>
-        <HelmetProvider>
-          <App />
-        </HelmetProvider>
-      </BrowserRouter>
-    </MuiThemeProvider>
+    <BrowserRouter>
+      <HelmetProvider>
+        <App />
+      </HelmetProvider>
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root'),
 );
