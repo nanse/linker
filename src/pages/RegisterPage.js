@@ -3,9 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 // @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import { AppBar, Toolbar, Typography, InputAdornment } from '@material-ui/core';
 
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
 // @material-ui/icons
 import Email from '@material-ui/icons/Email';
 import People from '@material-ui/icons/People';
@@ -21,19 +20,22 @@ import CardBody from '../components/Card/CardBody.js';
 import CardHeader from '../components/Card/CardHeader.js';
 import CardFooter from '../components/Card/CardFooter.js';
 import CustomInput from '../components/CustomInput/CustomInput.js';
+import ModalContainer from '../containers/modal/ModalContainer';
+
+// modules
+import { openModal } from '../modules/base';
+import { check } from '../modules/user';
+import { changeField, initializeForm, register } from '../modules/auth';
 
 import styles from '../assets/jss/material-kit-react/pages/RegisterPage.js';
-
 import image from 'assets/img/bg7.jpg';
-
-import { changeField, initializeForm, register } from '../modules/auth';
-import { check } from '../modules/user';
 
 const useStyles = makeStyles(styles);
 
 const RegisterPage = ({ history }) => {
   const [cardAnimaton, setCardAnimation] = useState('cardHidden');
   const [error, setError] = useState(null);
+  console.log(error);
 
   const dispatch = useDispatch();
   const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
@@ -64,19 +66,39 @@ const RegisterPage = ({ history }) => {
 
   // form Submit 이벤트 핸들러
   const handleSubmit = e => {
-    console.log('submit 됨');
     e.preventDefault();
-    console.log('form: ', form);
     const { nickname, email, password, passwordConfirm } = form;
 
     // 하나라도 비어있다면
     if ([nickname, email, password, passwordConfirm].includes('')) {
       setError('빈 칸을 모두 입력하세요.');
+      dispatch(
+        openModal({
+          title: '알림',
+          description: '빈 칸을 모두 입력하세요.',
+          onConfirm: () => console.log('확인 눌름'),
+          onCancel: () => console.log('취소 눌름'),
+          confirmText: 'Ok',
+          cancelText: 'cancel',
+          showCancelbutton: false,
+        }),
+      );
       return;
     }
     // 비밀번호가 일치하지 않는다면
     if (password !== passwordConfirm) {
       setError('비밀번호가 일치하지 않습니다.');
+      dispatch(
+        openModal({
+          title: '알림',
+          description: '비밀번호가 일치하지 않습니다.',
+          onConfirm: () => console.log('확인 눌름'),
+          onCancel: () => console.log('취소 눌름'),
+          confirmText: 'Ok',
+          cancelText: 'cancel',
+          showCancelbutton: false,
+        }),
+      );
       dispatch(changeField({ form: 'register', key: 'password', value: '' }));
       dispatch(
         changeField({ form: 'register', key: 'passwordConfirm', value: '' }),
@@ -84,6 +106,21 @@ const RegisterPage = ({ history }) => {
       return;
     }
     dispatch(register({ nickname, email, password, passwordConfirm }));
+  };
+
+  // open modal
+  const handleOpenModal = () => {
+    dispatch(
+      openModal({
+        title: '알림',
+        description: '당신을 체포합니다',
+        onConfirm: () => console.log('확인 눌름'),
+        onCancel: () => console.log('취소 눌름'),
+        confirmText: 'Ok',
+        cancelText: 'cancel',
+        showCancelbutton: false,
+      }),
+    );
   };
 
   // 컴포넌트가 처음 렌더링 될 때 form 을 초기화함
@@ -97,10 +134,32 @@ const RegisterPage = ({ history }) => {
       // 계정명이 이미 존재할 때
       if (authError.response.status === 409) {
         setError('이미 존재하는 계정명입니다.');
+        dispatch(
+          openModal({
+            title: '알림',
+            description: '이미 존재하는 계정명입니다.',
+            onConfirm: () => console.log('확인 눌름'),
+            onCancel: () => console.log('취소 눌름'),
+            confirmText: 'Ok',
+            cancelText: 'cancel',
+            showCancelbutton: true,
+          }),
+        );
         return;
       }
       // 기타 이유
       setError('회원가입 실패');
+      dispatch(
+        openModal({
+          title: '회원가입 실패',
+          description: '회원가입 실패',
+          onConfirm: () => console.log('확인 눌름'),
+          onCancel: () => console.log('취소 눌름'),
+          confirmText: 'Ok',
+          cancelText: 'cancel',
+          showCancelbutton: true,
+        }),
+      );
       return;
     }
 
@@ -221,6 +280,9 @@ const RegisterPage = ({ history }) => {
                     <Button color="primary" size="lg" type="submit">
                       회원가입 완료
                     </Button>
+                    <Button color="success" size="lg" onClick={handleOpenModal}>
+                      모달오픈
+                    </Button>
                   </CardFooter>
                 </form>
               </Card>
@@ -229,6 +291,7 @@ const RegisterPage = ({ history }) => {
         </div>
         <Footer whiteFont />
       </div>
+      <ModalContainer></ModalContainer>
     </div>
   );
 };

@@ -4,7 +4,7 @@ import createRequestSaga, {
 } from '../lib/createRequestSaga';
 import * as messageAPI from '../lib/api/message'; // SendBirdAction으로 변경.
 
-import { takeLatest, put, call } from 'redux-saga/effects';
+import { takeLatest } from 'redux-saga/effects';
 
 const [
   LIST_MAIN_MESSAGE,

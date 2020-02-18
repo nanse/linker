@@ -29,49 +29,12 @@ export default function Footer(props) {
   return (
     <footer className={footerClasses}>
       <div className={classes.container}>
-        <div className={classes.left}>
-          <List className={classes.list}>
-            <ListItem className={classes.inlineBlock}>
-              <a
-                href="https://www.naver.com"
-                className={classes.block}
-                target="_blank"
-              >
-                Linker
-              </a>
-            </ListItem>
-            <ListItem className={classes.inlineBlock}>
-              <a
-                href="https://www.naver.com"
-                className={classes.block}
-                target="_blank"
-              >
-                About us
-              </a>
-            </ListItem>
-            <ListItem className={classes.inlineBlock}>
-              <a
-                href="https://www.naver.com"
-                className={classes.block}
-                target="_blank"
-              >
-                Blog
-              </a>
-            </ListItem>
-          </List>
-        </div>
-        <div className={classes.right}>
-          &copy; {1900 + new Date().getYear()} , made with{' '}
-          <Favorite className={classes.icon} /> by{' '}
-          <a
-            href="https://www.creative-tim.com?ref=mkr-footer"
-            className={aClasses}
-            target="_blank"
-          >
-            Liker edu portal
-          </a>{' '}
-          for a better edu.
-        </div>
+        <List className={classes.list}>
+          <ListItem className={classes.inlineBlock}>
+            Linker&copy; {1900 + new Date().getYear()}, made with{' '}
+            <Favorite className={classes.icon} /> by Linker
+          </ListItem>
+        </List>
       </div>
     </footer>
   );

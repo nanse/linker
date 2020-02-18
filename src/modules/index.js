@@ -9,8 +9,10 @@ import posts, { postsSaga } from './posts';
 // messager
 import channel, { channelSaga } from './channel';
 import message, { messageSaga } from './message';
+import base, { baseSaga } from './base';
 
 const rootReducer = combineReducers({
+  base,
   auth,
   loading,
   user,
@@ -23,6 +25,7 @@ const rootReducer = combineReducers({
 
 export function* rootSaga() {
   yield all([
+    baseSaga(),
     authSaga(),
     userSaga(),
     writeSaga(),

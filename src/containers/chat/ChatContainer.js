@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Divider } from '@material-ui/core';
 import GridContainer from '../../components/Grid/GridContainer';
@@ -27,6 +27,8 @@ const ChatContainer = () => {
     dispatch(listMainMessage({ channel, isInit: true }));
     dispatch(listOtherMessage({ channel, isInit: true }));
   }, [channel, dispatch]);
+
+  console.log(error);
 
   return (
     <GridContainer>

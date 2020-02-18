@@ -14,7 +14,7 @@ const signupPageStyle = {
     transform: 'translate3d(0, -60px, 0)',
   },
   pageHeader: {
-    minHeight: '100vh',
+    minHeight: '95vh',
     height: 'auto',
     display: 'inherit',
     position: 'relative',

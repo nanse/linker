@@ -32,6 +32,9 @@ export const register = ({
   });
 
 // 로그인 상태 확인
+export const ping = () => client.get('/edu/svc/channelList?category=&limit=10');
+
+// 로그인 상태 확인
 export const check = () => client.get('/api/auth/check');
 
 // 로그아웃
