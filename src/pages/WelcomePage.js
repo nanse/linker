@@ -1,10 +1,11 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Typography, Button } from '@material-ui/core';
+import { Typography, Button } from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import Parallax from '../components/Parallax/Parallax';
-import Footer from '../components/Footer/Footer.js';
+
+// layout
+import UploadLayout from '../components/Layouts/UploadLayout';
 
 const styles = {
   // root: {},
@@ -40,44 +41,30 @@ const WelcomePage = () => {
   const classes = useStyles();
 
   return (
-    <>
-      <AppBar position="static">
-        <Toolbar variant="dense">
-          <Typography variant="h5">Linker</Typography>
-        </Toolbar>
-      </AppBar>
-      <Parallax
-        image={require('../assets/img/bg2.jpg')}
-        className={classes.root}
-      >
-        <div className={classes.container}>
-          <Typography variant="h1" className={classes.title}>
-            멘토 사전등록
-          </Typography>
+    <UploadLayout>
+      <Typography variant="h1" className={classes.title}>
+        멘토 사전등록
+      </Typography>
 
-          <Typography variant="body1" className={classes.subtitle}>
-            입시최강 서비스 링커에서 멘토분들을 사전 등록하는 행사를 진행합니다.
-            <br />
-            입시 최강 서비스 링커에서 멘토분들을 사전 등록하는 행사를
-            진행합니다.
-            <br />
-          </Typography>
-          <div className={classes.buttonContainer}>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-              size="large"
-              endIcon={<ArrowForwardIosIcon></ArrowForwardIosIcon>}
-              href="/register"
-            >
-              등록하러 가기
-            </Button>
-          </div>
-        </div>
-      </Parallax>
-      <Footer />
-    </>
+      <Typography variant="body1" className={classes.subtitle}>
+        입시최강 서비스 링커에서 멘토분들을 사전 등록하는 행사를 진행합니다.
+        <br />
+        입시 최강 서비스 링커에서 멘토분들을 사전 등록하는 행사를 진행합니다.
+        <br />
+      </Typography>
+      <div className={classes.buttonContainer}>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          size="large"
+          endIcon={<ArrowForwardIosIcon></ArrowForwardIosIcon>}
+          href="/register"
+        >
+          등록하러 가기
+        </Button>
+      </div>
+    </UploadLayout>
   );
 };
 
