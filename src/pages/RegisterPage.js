@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -38,11 +38,10 @@ const RegisterPage = ({ history }) => {
   // console.log(error);
 
   const dispatch = useDispatch();
-  const { form, auth, authError, user } = useSelector(({ auth, user }) => ({
+  const { form, auth, authError } = useSelector(({ auth }) => ({
     form: auth.register,
     auth: auth.auth,
     authError: auth.authError,
-    user: user.user,
   }));
 
   const classes = useStyles();
@@ -52,17 +51,20 @@ const RegisterPage = ({ history }) => {
   }, 700);
 
   // 인풋 변경 이벤트 핸들러
-  const handleChange = e => {
-    const { value, id } = e.target;
+  const handleChange = useCallback(
+    e => {
+      const { value, id } = e.target;
 
-    dispatch(
-      changeField({
-        form: 'register',
-        key: id,
-        value,
-      }),
-    );
-  };
+      dispatch(
+        changeField({
+          form: 'register',
+          key: id,
+          value,
+        }),
+      );
+    },
+    [dispatch],
+  );
 
   // form Submit 이벤트 핸들러
   const handleSubmit = e => {
@@ -76,10 +78,6 @@ const RegisterPage = ({ history }) => {
         openModal({
           title: '알림',
           description: '빈 칸을 모두 입력하세요.',
-          onConfirm: () => console.log('확인 눌름'),
-          onCancel: () => console.log('취소 눌름'),
-          confirmText: 'Ok',
-          cancelText: 'cancel',
           showCancelbutton: false,
         }),
       );
@@ -92,10 +90,6 @@ const RegisterPage = ({ history }) => {
         openModal({
           title: '알림',
           description: '비밀번호가 일치하지 않습니다.',
-          onConfirm: () => console.log('확인 눌름'),
-          onCancel: () => console.log('취소 눌름'),
-          confirmText: 'Ok',
-          cancelText: 'cancel',
           showCancelbutton: false,
         }),
       );
@@ -106,21 +100,6 @@ const RegisterPage = ({ history }) => {
       return;
     }
     dispatch(register({ nickname, emailId, password, passwordConfirm }));
-  };
-
-  // open modal
-  const handleOpenModal = () => {
-    dispatch(
-      openModal({
-        title: '알림',
-        description: '당신을 체포합니다',
-        onConfirm: () => console.log('확인 눌름'),
-        onCancel: () => console.log('취소 눌름'),
-        confirmText: 'Ok',
-        cancelText: 'cancel',
-        showCancelbutton: false,
-      }),
-    );
   };
 
   // 컴포넌트가 처음 렌더링 될 때 form 을 초기화함
@@ -145,24 +124,25 @@ const RegisterPage = ({ history }) => {
     // 성공
     if (auth) {
       try {
-        localStorage.setItem('auth', JSON.stringify(auth));
+        localStorage.setItem('auth', JSON.stringify(auth.result));
+        history.push('/upload');
       } catch (e) {
         console.log('localStorage is not working');
       }
     }
-  }, [auth, authError, dispatch]);
+  }, [auth, authError, dispatch, history]);
 
   // user 값이 잘 설정되었는지 확인
-  useEffect(() => {
-    if (user) {
-      history.push('/'); // 홈 화면으로 이동
-      try {
-        localStorage.setItem('user', JSON.stringify(user));
-      } catch (e) {
-        console.log('localStorage is not working');
-      }
-    }
-  }, [history, user]);
+  // useEffect(() => {
+  //   if (user) {
+  //     history.push('/'); // 홈 화면으로 이동
+  //     try {
+  //       localStorage.setItem('user', JSON.stringify(user));
+  //     } catch (e) {
+  //       console.log('localStorage is not working');
+  //     }
+  //   }
+  // }, [history, user]);
 
   return (
     <UploadLayout>

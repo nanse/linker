@@ -20,8 +20,8 @@ const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestActionTypes(
 export const changeField = createAction(
   CHANGE_FIELD,
   ({ form, key, value }) => ({
-    form, // register , login
-    key, // username, password, passwordConfirm
+    form, // register , record
+    key, // emailId, password, passwordConfirm
     value, // 실제 바꾸려는 값
   }),
 );

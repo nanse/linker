@@ -27,10 +27,6 @@ const ModalContainer = () => {
     showCancelbutton: base.modalData.showCancelbutton,
   }));
 
-  useEffect(() => {
-    console.log('> sw: ', sw);
-  }, [sw]);
-
   const handleConfirm = e => {
     console.log('> handleConfirm:');
     onConfirm && onConfirm(e);

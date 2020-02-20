@@ -42,7 +42,6 @@ const auth = handleActions(
         draft.modals[name] = !!sw;
       }),
     [SET_MODAL_DATA]: (state, { payload }) => {
-      console.log('> reducer: SET_MODAL_DATA ', payload);
       return produce(state, draft => {
         draft.modalData = payload;
       });

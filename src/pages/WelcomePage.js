@@ -1,38 +1,32 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Button } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 // layout
 import UploadLayout from '../components/Layouts/UploadLayout';
 
+import Button from '../components/CustomButtons/Button.js';
+
 const styles = {
-  // root: {},
-  // container: {
-  //   margin: '0 auto',
-  //   padding: theme.spacing(3),
-  // },
-  // title: {
-  //   marginTop: theme.spacing(-10),
-  //   color: theme.palette.common.neutral,
-  //   fontSize: '3.2rem',
-  //   fontWeight: '600',
-  //   lineHeight: '60px',
-  // },
-  // subtitle: {
-  //   marginTop: theme.spacing(7),
-  //   marginBottom: theme.spacing(5),
-  //   color: theme.palette.common.neutral,
-  //   fontSize: '1.4rem',
-  //   lineHeight: '30px',
-  // },
-  // buttonContainer: {
-  //   textAlign: 'center',
-  // },
-  // button: {
-  //   margin: theme.spacing(2),
-  // },
+  title: {
+    fontSize: '2.5rem',
+    fontWeight: '600',
+    lineHeight: '60px',
+  },
+  subtitle: {
+    marginTop: '40px',
+    marginBottom: '30px',
+    fontSize: '1.4rem',
+    lineHeight: '30px',
+  },
+  buttonContainer: {
+    textAlign: 'center',
+  },
+  button: {
+    margin: '10px',
+  },
 };
 
 const useStyles = makeStyles(styles);
@@ -43,7 +37,7 @@ const WelcomePage = () => {
   return (
     <UploadLayout>
       <Typography variant="h1" className={classes.title}>
-        멘토 사전등록
+        👨‍🏫 멘토 사전등록
       </Typography>
 
       <Typography variant="body1" className={classes.subtitle}>

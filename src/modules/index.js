@@ -10,17 +10,19 @@ import posts, { postsSaga } from './posts';
 import channel, { channelSaga } from './channel';
 import message, { messageSaga } from './message';
 import base, { baseSaga } from './base';
+import record, { recordSaga } from './record';
 
 const rootReducer = combineReducers({
   base,
   auth,
+  channel,
+  message,
+  record,
   loading,
   user,
   write,
   post,
   posts,
-  channel,
-  message,
 });
 
 export function* rootSaga() {
@@ -33,6 +35,7 @@ export function* rootSaga() {
     postsSaga(),
     channelSaga(),
     messageSaga(),
+    recordSaga(),
   ]);
 }
 

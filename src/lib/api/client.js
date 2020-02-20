@@ -2,6 +2,11 @@ import axios from 'axios';
 
 const client = axios.create();
 
+const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
+
+// API 주소를 다른 곳으로 사용함
+client.defaults.baseURL = REACT_APP_API_URL;
+
 /*
   글로벌 설정 예시:
   
@@ -23,5 +28,22 @@ const client = axios.create();
     }
   })  
 */
+function setHeader() {
+  return null;
+}
+client.interceptors.request.use(function(config) {
+  const a = localStorage.getItem('auth');
+  const auth = a ? JSON.parse(a) : null;
+  if (auth) {
+    console.log('> localStorage: auth: ', auth.token);
+    config.headers.common['authorization'] = auth.token;
+    config.headers.common['hipId'] = auth.hipId;
+  }
+  config.headers.common['osType'] = 'A';
+  config.headers.common['appVersion'] = '1.0.0';
+  config.headers.common['deviceId'] = '5b88bf1ac9cac646';
+  config.headers.common['accept-Language'] = 'ko-kr';
+  return config;
+});
 
 export default client;
