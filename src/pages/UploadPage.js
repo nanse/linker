@@ -153,14 +153,14 @@ const UploadPage = ({ history }) => {
                     fullWidth: true,
                   }}
                   inputProps={{
-                    type: 'text',
+                    type: 'file',
+                    accept: '.xlsx,.xls,.doc,.docx,.ppt, .pptx,.pdf',
                     endAdornment: (
                       <InputAdornment position="end">
                         <AttachFileIcon className={classes.inputIconsColor} />
                       </InputAdornment>
                     ),
                   }}
-                  type="file"
                   onChange={handleFileChange}
                 />
                 <CustomInput

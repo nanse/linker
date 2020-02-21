@@ -29,6 +29,10 @@ export default function CustomInput(props) {
     ...rest
   } = props;
 
+  console.log('form: ', formControlProps);
+
+  console.log('input: ', inputProps);
+
   const labelClasses = classNames({
     [' ' + classes.labelRootError]: error,
     [' ' + classes.labelRootSuccess]: success && !error,
@@ -75,7 +79,7 @@ export default function CustomInput(props) {
         }}
         id={id}
         onChange={onChange}
-        {...inputProps}
+        inputProps={inputProps}
         {...rest}
       />
     </FormControl>

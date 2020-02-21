@@ -1,5 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import { startLoading, finishLoading } from '../modules/loading';
+import findErrorMessage from './errorMessage';
 
 export const createRequestActionTypes = type => {
   const SUCCESS = `${type}_SUCCESS`;
@@ -26,7 +27,8 @@ export default function createRequestSaga(type, request) {
           payload: response.data,
         });
       } else {
-        const { resultCode, resultText } = response.data;
+        let { resultCode, resultText } = response.data;
+        resultText = resultText ? resultText : findErrorMessage(resultCode);
         yield put({
           type: FAILURE,
           payload: { resultCode, resultText },

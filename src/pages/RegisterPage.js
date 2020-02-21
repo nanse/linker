@@ -36,8 +36,6 @@ const useStyles = makeStyles(styles);
 
 const RegisterPage = ({ history }) => {
   const [cardAnimaton, setCardAnimation] = useState('cardHidden');
-  const [error, setError] = useState(null);
-  // console.log(error);
 
   const dispatch = useDispatch();
   const { form, auth, authError } = useSelector(({ auth }) => ({
@@ -75,7 +73,6 @@ const RegisterPage = ({ history }) => {
 
     // 하나라도 비어있다면
     if ([nickname, emailId, password, passwordConfirm].includes('')) {
-      setError('빈 칸을 모두 입력하세요.');
       dispatch(
         openModal({
           title: '알림',
@@ -87,7 +84,6 @@ const RegisterPage = ({ history }) => {
     }
     // 비밀번호가 일치하지 않는다면
     if (password !== passwordConfirm) {
-      setError('비밀번호가 일치하지 않습니다.');
       dispatch(
         openModal({
           title: '알림',
