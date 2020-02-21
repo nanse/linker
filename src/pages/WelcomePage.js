@@ -51,7 +51,7 @@ const WelcomePage = () => {
           variant="contained"
           color="primary"
           className={classes.button}
-          size="large"
+          size="lg"
           endIcon={<ArrowForwardIosIcon></ArrowForwardIosIcon>}
           href="/register"
         >

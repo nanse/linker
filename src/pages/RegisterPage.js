@@ -231,7 +231,7 @@ const RegisterPage = ({ history }) => {
               </CardBody>
               <CardFooter className={classes.cardFooter}>
                 <Button color="primary" size="lg" type="submit">
-                  회원가입 완료
+                  등록
                 </Button>
               </CardFooter>
             </form>
