@@ -11,7 +11,7 @@ const App = () => {
   return (
     <>
       <Helmet>
-        <title>REACTERS</title>
+        <title>생기부 사전 업로드 : Linker</title>
       </Helmet>
       <Route component={ChatPage} path={'/chat'} />
       <Route component={WelcomePage} path="/welcome" />

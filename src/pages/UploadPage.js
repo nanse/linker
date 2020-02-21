@@ -2,6 +2,8 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+import { Helmet } from 'react-helmet-async';
+
 // @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles';
 import { InputAdornment } from '@material-ui/core';
@@ -119,6 +121,9 @@ const UploadPage = ({ history }) => {
 
   return (
     <UploadLayout>
+      <Helmet>
+        <title>생기부 업로드 - Linker</title>
+      </Helmet>
       <SnackbarContent
         message={
           <span>
