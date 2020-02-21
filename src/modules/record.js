@@ -15,17 +15,6 @@ const [
   UPLOAD_RECORD_FAILURE,
 ] = createRequestActionTypes('record/UPLOAD_RECORD');
 
-// export const changeField = createAction(
-//   CHANGE_FIELD,
-//   ({ form, key, value }) => ({
-//     form, // register , record
-//     key, // emailId, password, passwordConfirm
-//     value, // 실제 바꾸려는 값
-//   }),
-// );
-
-// export const initializeForm = createAction(INITIALIZE_FORM, form => form); // register / login
-
 export const uploadRecord = createAction(
   UPLOAD_RECORD,
   ({ fileFormData, pdfPassword }) => ({

@@ -6,8 +6,7 @@ import { Helmet } from 'react-helmet-async';
 
 // @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles';
-import { InputAdornment } from '@material-ui/core';
-
+import { InputAdornment, CircularProgress } from '@material-ui/core';
 // @material-ui/icons
 import Check from '@material-ui/icons/Check';
 import Lock from '@material-ui/icons/Lock';
@@ -40,10 +39,13 @@ const UploadPage = ({ history }) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
-  const { record, recordError } = useSelector(({ record }) => ({
-    record: record.record,
-    recordError: record.recordError,
-  }));
+  const { record, recordError, loading } = useSelector(
+    ({ record, loading }) => ({
+      record: record.record,
+      recordError: record.recordError,
+      loading: loading['record/UPLOAD_RECORD'],
+    }),
+  );
 
   // 인증 체크
   useEffect(() => {
@@ -179,9 +181,13 @@ const UploadPage = ({ history }) => {
                 />
               </CardBody>
               <CardFooter className={classes.cardFooter}>
-                <Button color="primary" size="lg" type="submit">
-                  파일 업로드
-                </Button>
+                {loading ? (
+                  <CircularProgress></CircularProgress>
+                ) : (
+                  <Button color="primary" size="lg" type="submit">
+                    파일 업로드
+                  </Button>
+                )}
               </CardFooter>
             </form>
           </Card>

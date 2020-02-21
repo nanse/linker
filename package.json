@@ -33,7 +33,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "aws s3 sync ./build s3://linker.co.kr",
-    "invalidate": "aws cloudfront create-invalidation --distribution-id E1ZPYOV2NNC6YX --paths / /index.html /error.html /service-worker.js /manifest.json /favicon.ico"
+    "invalidate": "aws cloudfront create-invalidation --distribution-id E1ZPYOV2NNC6YX --paths / /index.html /manifest.json /favicon.ico"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -50,5 +50,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:4000/"
+  "proxy": "http://localhost:4000/",
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
 }

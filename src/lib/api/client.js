@@ -28,9 +28,7 @@ client.defaults.baseURL = REACT_APP_API_URL;
     }
   })  
 */
-function setHeader() {
-  return null;
-}
+
 client.interceptors.request.use(function(config) {
   const a = localStorage.getItem('auth');
   const auth = a ? JSON.parse(a) : null;
