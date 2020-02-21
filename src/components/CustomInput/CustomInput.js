@@ -29,10 +29,6 @@ export default function CustomInput(props) {
     ...rest
   } = props;
 
-  console.log('form: ', formControlProps);
-
-  console.log('input: ', inputProps);
-
   const labelClasses = classNames({
     [' ' + classes.labelRootError]: error,
     [' ' + classes.labelRootSuccess]: success && !error,
