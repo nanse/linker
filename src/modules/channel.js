@@ -1,8 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import produce from 'immer';
-import createRequestSaga, {
-  createRequestActionTypes,
-} from '../lib/createRequestSaga';
+import { createRequestActionTypes } from '../lib/createRequestSaga';
+import createRequestSendbirdSaga from '../lib/createRequestSendbirdSaga';
 import * as channelAPI from '../lib/api/channel'; // SendBirdAction으로 변경.
 
 import { takeLatest, put, call } from 'redux-saga/effects';
@@ -35,7 +34,10 @@ export const enter = createAction(ENTER_CHANNEL, url => url);
 export const getChannel = createAction(GET_CHANNEL, url => url);
 
 // Sagas
-const listChanelSaga = createRequestSaga(LIST_CHANNEL, channelAPI.listChannel);
+const listChanelSaga = createRequestSendbirdSaga(
+  LIST_CHANNEL,
+  channelAPI.listChannel,
+);
 
 function* enterSaga(action) {
   try {

@@ -29,7 +29,7 @@ const ChannelItem = ({ channel, onEnterChannel }) => {
 };
 
 const ChannelList = ({ channels, loading, onEnterChannel }) => {
-  // console.log('> ChannelList channels:', loading);
+  // console.log('> ChannelList channels:', loading, channels);
   return (
     <>
       {!loading && channels && (

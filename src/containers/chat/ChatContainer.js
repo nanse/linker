@@ -24,6 +24,7 @@ const ChatContainer = () => {
     otherLoading: loading['message/LIST_OTHER_MESSAGE'],
   }));
   useEffect(() => {
+    console.log('> chat container:', channel);
     dispatch(listMainMessage({ channel, isInit: true }));
     dispatch(listOtherMessage({ channel, isInit: true }));
   }, [channel, dispatch]);

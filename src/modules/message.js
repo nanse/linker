@@ -1,7 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
-import createRequestSaga, {
-  createRequestActionTypes,
-} from '../lib/createRequestSaga';
+import { createRequestActionTypes } from '../lib/createRequestSaga';
+
+import createRequestSendbirdSaga from '../lib/createRequestSendbirdSaga';
 import * as messageAPI from '../lib/api/message'; // SendBirdAction으로 변경.
 
 import { takeLatest } from 'redux-saga/effects';
@@ -37,12 +37,12 @@ export const listOtherMessage = createAction(
 );
 
 // Sagas
-const listMainMessageSaga = createRequestSaga(
+const listMainMessageSaga = createRequestSendbirdSaga(
   LIST_MAIN_MESSAGE,
   messageAPI.listMessage,
 );
 
-const listOtherMessageSaga = createRequestSaga(
+const listOtherMessageSaga = createRequestSendbirdSaga(
   LIST_OTHER_MESSAGE,
   messageAPI.listMessage,
 );
