@@ -36,9 +36,10 @@ export default function createRequestSaga(type, request) {
         });
       }
     } catch (e) {
+      // console.log('> call catch: ', e);
       yield put({
         type: FAILURE,
-        payload: e,
+        payload: { resultCode: -999, resultText: e },
         error: true,
       });
     }
