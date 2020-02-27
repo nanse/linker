@@ -10,7 +10,7 @@ import { listChannel, enter } from '../../modules/channel';
 const useStyles = makeStyles(theme => ({
   drawer: {
     width: 310,
-    [theme.breakpoints.up('lg')]: {
+    [theme.breakpoints.up('md')]: {
       marginTop: 64,
       height: 'calc(100% - 64px)',
     },

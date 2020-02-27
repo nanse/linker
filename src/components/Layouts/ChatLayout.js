@@ -12,9 +12,9 @@ import Topbar from './components/Topbar';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    paddingTop: 56,
+    paddingTop: 64,
     height: '100%',
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       paddingTop: 64,
     },
   },
@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 const Main = ({ children }) => {
   const classes = useStyles();
   const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up('sm'), {
+  const isDesktop = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
 
