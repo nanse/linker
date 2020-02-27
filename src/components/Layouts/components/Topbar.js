@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Topbar = props => {
-  const { className, onSidebarOpen, ...rest } = props;
+  const { className, onLeftbarOpen, onRightbarOpen, ...rest } = props;
 
   const classes = useStyles();
 
@@ -30,7 +30,7 @@ const Topbar = props => {
   return (
     <AppBar {...rest} className={clsx(classes.root, className)}>
       <Toolbar>
-        <IconButton color="inherit" onClick={onSidebarOpen}>
+        <IconButton color="inherit" onClick={onLeftbarOpen}>
           <MenuIcon />
         </IconButton>
         <div className={classes.flexGrow} />
@@ -49,7 +49,7 @@ const Topbar = props => {
           </IconButton>
         </Hidden>
         <Hidden lgUp>
-          <IconButton color="inherit" onClick={onSidebarOpen}>
+          <IconButton color="inherit" onClick={onRightbarOpen}>
             <MenuIcon />
           </IconButton>
         </Hidden>
@@ -60,7 +60,8 @@ const Topbar = props => {
 
 Topbar.propTypes = {
   className: PropTypes.string,
-  onSidebarOpen: PropTypes.func,
+  onLeftbarOpen: PropTypes.func,
+  onRightbarOpen: PropTypes.func,
 };
 
 export default Topbar;

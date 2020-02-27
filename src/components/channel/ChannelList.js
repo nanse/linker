@@ -54,7 +54,7 @@ const ChannelList = ({
   channels,
   onEnterChannel,
   className,
-  selectedIndex,
+  selectedItem,
   ...rest
 }) => {
   // console.log('> ChannelList channels:', loading, channels);
@@ -74,13 +74,13 @@ const ChannelList = ({
           >
             {channels
               .filter(x => x.customType === mentalkType.type)
-              .map((channel, index) => (
+              .map(channel => (
                 <ListItem
                   button
                   key={channel.url}
                   className={clsx(classes.item)}
-                  selected={selectedIndex === index}
-                  onClick={() => onEnterChannel(channel.url, index)}
+                  selected={selectedItem === channel.url}
+                  onClick={() => onEnterChannel(channel.url)}
                 >
                   <ListItemAvatar className={classes.icon}>
                     <Avatar alt={channel.name} src={channel.coverUrl} />

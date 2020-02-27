@@ -33,17 +33,27 @@ const Main = ({ children }) => {
     defaultMatches: true,
   });
 
-  const [openSidebar, setOpenSidebar] = useState(false);
+  const [openLeftbar, setOpenLeftbar] = useState(false);
+  const [openRightbar, setOpenRightbar] = useState(false);
 
-  const handleSidebarOpen = () => {
-    setOpenSidebar(true);
+  const handleLeftbarOpen = () => {
+    setOpenLeftbar(true);
   };
 
-  const handleSidebarClose = () => {
-    setOpenSidebar(false);
+  const handleLeftbarClose = () => {
+    setOpenLeftbar(false);
   };
 
-  const shouldOpenSidebar = isDesktop ? true : openSidebar;
+  const handleRightbarOpen = () => {
+    setOpenRightbar(true);
+  };
+
+  const handleRightbarClose = () => {
+    setOpenRightbar(false);
+  };
+
+  const shouldOpenLeftbar = isDesktop ? true : openLeftbar;
+  const shouldOpenRightbar = isDesktop ? true : openRightbar;
 
   // sendbird connection
   const { isConnection } = useSelector(({ sendbird }) => ({
@@ -57,23 +67,26 @@ const Main = ({ children }) => {
         [classes.shiftContent]: isDesktop,
       })}
     >
-      <Topbar onSidebarOpen={handleSidebarOpen} />
+      <Topbar
+        onLeftbarOpen={handleLeftbarOpen}
+        onRightbarOpen={handleRightbarOpen}
+      />
       {/* <Sidebar
-        onClose={handleSidebarClose}
-        open={shouldOpenSidebar}
+        onClose={handleLeftbarClose}
+        open={shouldOpenLeftbar}
         variant={isDesktop ? 'persistent' : 'temporary'}
       /> */}
       {isConnection && (
         <LeftbarContainer
-          onClose={handleSidebarClose}
-          open={shouldOpenSidebar}
+          onClose={handleLeftbarClose}
+          open={shouldOpenLeftbar}
           variant={isDesktop ? 'persistent' : 'temporary'}
         ></LeftbarContainer>
       )}
       {isConnection && (
         <RightbarContainer
-          onClose={handleSidebarClose}
-          open={shouldOpenSidebar}
+          onClose={handleRightbarClose}
+          open={shouldOpenRightbar}
           variant={isDesktop ? 'persistent' : 'temporary'}
         ></RightbarContainer>
       )}

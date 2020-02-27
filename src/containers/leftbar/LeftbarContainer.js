@@ -34,7 +34,7 @@ const LeftbarContainer = ({ open, variant, onClose, className, ...rest }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [selectedItem, setSelectedItem] = useState('');
 
   const { channels, error, loading } = useSelector(({ channel, loading }) => ({
     channels: channel.channels,
@@ -46,9 +46,9 @@ const LeftbarContainer = ({ open, variant, onClose, className, ...rest }) => {
   }, [dispatch]);
 
   const handleEnterChannel = useCallback(
-    (url, index) => {
-      console.log('> handleEnterChannel: ', url);
-      setSelectedIndex(index);
+    url => {
+      // console.log('> handleEnterChannel: ', url);
+      setSelectedItem(url);
       dispatch(enter(url));
     },
     [dispatch],
@@ -70,7 +70,7 @@ const LeftbarContainer = ({ open, variant, onClose, className, ...rest }) => {
           error={error}
           channels={channels}
           onEnterChannel={handleEnterChannel}
-          selectedIndex={selectedIndex}
+          selectedItem={selectedItem}
           className={classes.nav}
         />
       </div>
