@@ -1,15 +1,13 @@
-import React, { useState, useEffect, createRef } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { makeStyles } from '@material-ui/core/styles';
-import ChannelListContainer from '../containers/channel/ChannelListContainer';
 import ChatContainer from '../containers/chat/ChatContainer';
 import { SendBirdAction } from '../lib/Sendbird/SendBirdAction';
 import { SendBirdConnection } from '../lib/Sendbird/SendBirdConnection';
 
-// creates a beautiful scrollbar
-import PerfectScrollbar from 'perfect-scrollbar';
-import 'perfect-scrollbar/css/perfect-scrollbar.css';
+// layout
+import ChatLayout from '../components/Layouts/ChatLayout';
+import { changeConnection } from '../modules/sendbird';
 
 import {
   getVariableFromUrl,
@@ -17,24 +15,15 @@ import {
   redirectToIndex,
 } from '../lib/Sendbird/utils';
 
-import styles from '../assets/jss/material-kit-react/pages/chatPageStyle';
-
 const sb = new SendBirdAction();
-const useStyles = makeStyles(styles);
-let ps;
 
-const PostPage = () => {
-  // styles
-  const classes = useStyles();
-
-  // ref
-  const mainPanel = createRef();
-
-  // state
-  const [isConnection, setIsConnection] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-
+const ChatPage = () => {
+  const dispatch = useDispatch();
   const { channel } = useSelector(state => state.channel);
+
+  const handleConnection = isConnection =>
+    dispatch(changeConnection(isConnection));
+
   const createConnectionHandler = () => {
     const connectionManager = new SendBirdConnection();
     connectionManager.onReconnectStarted = () => {
@@ -58,46 +47,17 @@ const PostPage = () => {
     sb.connect(userid, accesstoken)
       .then(user => {
         console.log('> user: ', user);
-        setIsConnection(true);
+        handleConnection(true);
         createConnectionHandler();
       })
       .catch(e => {
         console.error(e);
+        handleConnection(false);
         // redirectToIndex("SendBird connection failed.");
       });
-  }, []);
+  }, [handleConnection]);
 
-  // Scroll Handler
-  const resizeFunction = () => {
-    if (window.innerWidth >= 960) {
-      setMobileOpen(false);
-    }
-  };
-  useEffect(() => {
-    if (navigator.platform.indexOf('Win') > -1) {
-      ps = new PerfectScrollbar(mainPanel.current, {
-        suppressScrollX: true,
-        suppressScrollY: false,
-      });
-      document.body.style.overflow = 'hidden';
-    }
-    window.addEventListener('resize', resizeFunction);
-    // Specify how to clean up after this effect:
-    return function cleanup() {
-      if (navigator.platform.indexOf('Win') > -1) {
-        ps.destroy();
-      }
-      window.removeEventListener('resize', resizeFunction);
-    };
-  }, [mainPanel]);
-  return (
-    <>
-      {isConnection && <ChannelListContainer></ChannelListContainer>}
-      <div className={classes.root} ref={mainPanel}>
-        {channel && <ChatContainer></ChatContainer>}
-      </div>
-    </>
-  );
+  return <ChatLayout>{channel && <ChatContainer></ChatContainer>}</ChatLayout>;
 };
 
-export default PostPage;
+export default ChatPage;

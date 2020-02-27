@@ -11,11 +11,13 @@ import channel, { channelSaga } from './channel';
 import message, { messageSaga } from './message';
 import base, { baseSaga } from './base';
 import record, { recordSaga } from './record';
+import sendbird from './sendbird';
 
 const rootReducer = combineReducers({
   base,
   auth,
   channel,
+  sendbird,
   message,
   record,
   loading,

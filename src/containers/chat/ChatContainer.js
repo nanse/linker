@@ -3,14 +3,15 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import GridContainer from '../../components/Grid/GridContainer';
 import ChatItem from '../../components/chat/ChatItem';
 
 import { listMainMessage, listOtherMessage } from '../../modules/message';
 
-import styles from '../../assets/jss/material-kit-react/container/chatContainerStyle';
-
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(theme => ({
+  root: {
+    padding: theme.spacing(4),
+  },
+}));
 
 const ChatContainer = () => {
   const dispatch = useDispatch();
@@ -39,15 +40,15 @@ const ChatContainer = () => {
 
   return (
     <div className={classes.root}>
-      <GridContainer>
-        <Grid item xs={12} sm={12} md={6}>
+      <Grid container spacing={4}>
+        <Grid item lg={3} sm={6} xl={3} xs={12}>
           <h3>Main</h3>
           {!mainLoading &&
             mainMessages.map(message => (
               <ChatItem key={message.messageId} message={message}></ChatItem>
             ))}
         </Grid>
-        <Grid item xs={12} sm={12} md={6}>
+        <Grid item lg={3} sm={6} xl={3} xs={12}>
           <Divider />
           <h3>Other</h3>
           {!otherLoading &&
@@ -55,7 +56,7 @@ const ChatContainer = () => {
               <ChatItem key={message.messageId} message={message}></ChatItem>
             ))}
         </Grid>
-      </GridContainer>
+      </Grid>
     </div>
   );
 };

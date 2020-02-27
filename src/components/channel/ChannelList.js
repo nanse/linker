@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import clsx from 'clsx';
 
 // @material-ui/core components
-// import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import {
-  Hidden,
-  Drawer,
+  colors,
   Divider,
   List,
   ListSubheader,
   ListItem,
-  ListItemText,
   ListItemAvatar,
   Avatar,
 } from '@material-ui/core';
@@ -17,75 +17,80 @@ import {
 // import styles from 'assets/jss/material-kit-react/components/channelListStyle.js';
 import { MENTALK_TYPES } from '../../common/const';
 
-// const useStyles = makeStyles(styles);
-
-const ChannelItem = ({ channel, onEnterChannel }) => {
-  const { url, name, coverUrl } = channel;
-  return (
-    <ListItem button onClick={() => onEnterChannel(url)}>
-      <ListItemAvatar>
-        <Avatar alt={name} src={coverUrl} />
-      </ListItemAvatar>
-      <ListItemText primary={name} />
-    </ListItem>
-  );
-};
-
-const channelRender = (channels, onEnterChannel) => (
-  <>
-    {MENTALK_TYPES.map(mentalkType => (
-      <List
-        key={mentalkType.type}
-        subheader={
-          <ListSubheader component="div">{mentalkType.name}</ListSubheader>
-        }
-      >
-        {channels
-          .filter(x => x.customType === mentalkType.type)
-          .map(channel => (
-            <ChannelItem
-              key={channel.url}
-              channel={channel}
-              onEnterChannel={onEnterChannel}
-            ></ChannelItem>
-          ))}
-        <Divider></Divider>
-      </List>
-    ))}
-  </>
-);
+const useStyles = makeStyles(theme => ({
+  root: {
+    backgroundColor: theme.palette.background.paper,
+  },
+  item: {
+    display: 'flex',
+    padding: theme.spacing(2, 0),
+    color: colors.blueGrey[800],
+    width: '100%',
+    fontWeight: theme.typography.fontWeightMedium,
+    justifyContent: 'flex-start',
+    textTransform: 'none',
+    letterSpacing: 0,
+  },
+  icon: {
+    color: theme.palette.icon,
+    width: 24,
+    height: 24,
+    display: 'flex',
+    alignItems: 'center',
+    marginRight: theme.spacing(1),
+  },
+  active: {
+    backgroundColor: theme.palette.primary.main,
+    fontWeight: theme.typography.fontWeightMedium,
+  },
+  divider: {
+    margin: theme.spacing(2, 0),
+  },
+}));
 
 const ChannelList = ({
-  channels,
   loading,
+  error,
+  channels,
   onEnterChannel,
-  open,
-  onDrawerToggle,
+  className,
+  selectedIndex,
+  ...rest
 }) => {
   // console.log('> ChannelList channels:', loading, channels);
+  const classes = useStyles();
   return (
     <>
-      {!loading && channels && (
-        <div>
-          <Hidden mdUp implementation="css">
-            <Drawer
-              variant="temporary"
-              open={open}
-              onClose={onDrawerToggle}
-              ModalProps={{
-                keepMounted: true, // Better open performance on mobile.
-              }}
-            >
-              {channelRender(channels, onEnterChannel)}
-            </Drawer>
-          </Hidden>
-          <Hidden smDown implementation="css">
-            <Drawer variant="permanent" open>
-              {channelRender(channels, onEnterChannel)}
-            </Drawer>
-          </Hidden>
-        </div>
-      )}
+      {!loading &&
+        channels &&
+        MENTALK_TYPES.map(mentalkType => (
+          <List
+            {...rest}
+            key={mentalkType.type}
+            className={clsx(classes.root, className)}
+            subheader={
+              <ListSubheader component="div">{mentalkType.name}</ListSubheader>
+            }
+          >
+            {channels
+              .filter(x => x.customType === mentalkType.type)
+              .map((channel, index) => (
+                <ListItem
+                  button
+                  key={channel.url}
+                  className={clsx(classes.item)}
+                  selected={selectedIndex === index}
+                  onClick={() => onEnterChannel(channel.url, index)}
+                >
+                  <ListItemAvatar className={classes.icon}>
+                    <Avatar alt={channel.name} src={channel.coverUrl} />
+                  </ListItemAvatar>
+                  {channel.name}
+                </ListItem>
+              ))}
+            <Divider className={classes.divider} />
+          </List>
+        ))}
     </>
   );
 };
