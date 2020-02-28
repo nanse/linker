@@ -53,7 +53,7 @@ const Main = ({ children }) => {
   };
 
   const shouldOpenLeftbar = isDesktop ? true : openLeftbar;
-  const shouldOpenRightbar = isDesktop ? true : openRightbar;
+  const shouldOpenRightbar = openRightbar;
 
   // sendbird connection
   const { isConnection } = useSelector(({ sendbird }) => ({
@@ -87,7 +87,7 @@ const Main = ({ children }) => {
         <RightbarContainer
           onClose={handleRightbarClose}
           open={shouldOpenRightbar}
-          variant={isDesktop ? 'persistent' : 'temporary'}
+          variant={'temporary'}
         ></RightbarContainer>
       )}
       <main className={classes.content}>{children}</main>

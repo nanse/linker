@@ -34,7 +34,7 @@ const Topbar = props => {
           <MenuIcon />
         </IconButton>
         <div className={classes.flexGrow} />
-        <Hidden mdDown>
+        {/* <Hidden mdDown>
           <IconButton color="inherit">
             <Badge
               badgeContent={notifications.length}
@@ -47,12 +47,12 @@ const Topbar = props => {
           <IconButton className={classes.signOutButton} color="inherit">
             <InputIcon />
           </IconButton>
-        </Hidden>
-        <Hidden lgUp>
-          <IconButton color="inherit" onClick={onRightbarOpen}>
-            <MenuIcon />
-          </IconButton>
-        </Hidden>
+        </Hidden> */}
+        {/* <Hidden lgUp> */}
+        <IconButton color="inherit" onClick={onRightbarOpen}>
+          <MenuIcon />
+        </IconButton>
+        {/* </Hidden> */}
       </Toolbar>
     </AppBar>
   );

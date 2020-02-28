@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import ChatContainer from '../containers/chat/ChatContainer';
+import { Helmet } from 'react-helmet-async';
 import { SendBirdAction } from '../lib/Sendbird/SendBirdAction';
 import { SendBirdConnection } from '../lib/Sendbird/SendBirdConnection';
 
 // layout
 import ChatLayout from '../components/Layouts/ChatLayout';
+import ChatContainer from '../containers/chat/ChatContainer';
 import { changeConnection } from '../modules/sendbird';
 
 import {
@@ -57,7 +58,14 @@ const ChatPage = () => {
       });
   }, [handleConnection]);
 
-  return <ChatLayout>{channel && <ChatContainer></ChatContainer>}</ChatLayout>;
+  return (
+    <>
+      <Helmet>
+        <title>Chat - Linker</title>
+      </Helmet>
+      <ChatLayout>{channel && <ChatContainer></ChatContainer>}</ChatLayout>
+    </>
+  );
 };
 
 export default ChatPage;
