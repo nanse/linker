@@ -18,6 +18,12 @@ const [
   LIST_OTHER_MESSAGE_FAILURE,
 ] = createRequestActionTypes('message/LIST_OTHER_MESSAGE');
 
+const [
+  SEND_MESSAGE,
+  SEND_MESSAGE_SUCCESS,
+  SEND_MESSAGE_FAILURE,
+] = createRequestActionTypes('message/SEND_MESSAGE');
+
 // Actions
 export const listMainMessage = createAction(
   LIST_MAIN_MESSAGE,
@@ -36,6 +42,15 @@ export const listOtherMessage = createAction(
   }),
 );
 
+// send
+export const sendMessage = createAction(
+  SEND_MESSAGE,
+  ({ channel, message }) => ({
+    channel,
+    message,
+  }),
+);
+
 // Sagas
 const listMainMessageSaga = createRequestSendbirdSaga(
   LIST_MAIN_MESSAGE,
@@ -47,10 +62,16 @@ const listOtherMessageSaga = createRequestSendbirdSaga(
   messageAPI.listMessage,
 );
 
+const sendMessageSaga = createRequestSendbirdSaga(
+  SEND_MESSAGE,
+  messageAPI.sendUserMessage,
+);
+
 // Watchers
 export function* messageSaga() {
   yield takeLatest(LIST_MAIN_MESSAGE, listMainMessageSaga);
   yield takeLatest(LIST_OTHER_MESSAGE, listOtherMessageSaga);
+  yield takeLatest(SEND_MESSAGE, sendMessageSaga);
 }
 
 const initialState = {
@@ -61,6 +82,7 @@ const initialState = {
 
 const message = handleActions(
   {
+    // main list
     [LIST_MAIN_MESSAGE_SUCCESS]: (state, { payload: mainMessages }) => {
       console.log('> modules LIST_MAIN_MESSAGE_SUCCESS:', mainMessages);
       return {
@@ -75,6 +97,8 @@ const message = handleActions(
         error,
       };
     },
+
+    // other list
     [LIST_OTHER_MESSAGE_SUCCESS]: (state, { payload: otherMessages }) => {
       console.log('> modules LIST_OTHER_MESSAGE_SUCCESS:', otherMessages);
       return {
@@ -83,6 +107,19 @@ const message = handleActions(
       };
     },
     [LIST_OTHER_MESSAGE_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      error,
+    }),
+
+    // send message
+    [SEND_MESSAGE_SUCCESS]: (state, { payload }) => {
+      console.log('> modules SEND_MESSAGE_SUCCESS:', payload);
+      return {
+        ...state,
+        payload,
+      };
+    },
+    [SEND_MESSAGE_FAILURE]: (state, { payload: error }) => ({
       ...state,
       error,
     }),

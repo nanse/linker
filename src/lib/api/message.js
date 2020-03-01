@@ -8,3 +8,11 @@ export const listMessage = ({ channel, isInit = true, customType }) => {
     customType,
   );
 };
+
+// Open Channel 가져오기
+export const sendUserMessage = ({ channel, message, customType }) => {
+  return SendBirdAction.getInstance().sendUserMessage({
+    channel,
+    message,
+  });
+};
