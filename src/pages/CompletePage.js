@@ -3,7 +3,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 // layout
-import UploadLayout from '../components/Layouts/UploadLayout';
+import UploadLayout from '../components/Layouts/Upload/UploadLayout';
 
 const WelcomePage = () => {
   return (

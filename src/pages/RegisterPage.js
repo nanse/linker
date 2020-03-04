@@ -6,7 +6,7 @@ import GridContainer from '../components/Grid/GridContainer.js';
 import GridItem from '../components/Grid/GridItem.js';
 
 // layout
-import UploadLayout from '../components/Layouts/UploadLayout';
+import UploadLayout from '../components/Layouts/Upload/UploadLayout';
 import RegisterContainer from '../containers/auth/RegisterContainer';
 
 const RegisterPage = () => {

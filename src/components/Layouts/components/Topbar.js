@@ -23,8 +23,6 @@ const Topbar = props => {
 
   const classes = useStyles();
 
-  const [notifications] = useState([]);
-
   return (
     <AppBar {...rest} className={clsx(classes.root, className)}>
       <Toolbar>
@@ -32,25 +30,10 @@ const Topbar = props => {
           <MenuIcon />
         </IconButton>
         <div className={classes.flexGrow} />
-        {/* <Hidden mdDown>
-          <IconButton color="inherit">
-            <Badge
-              badgeContent={notifications.length}
-              color="primary"
-              variant="dot"
-            >
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <IconButton className={classes.signOutButton} color="inherit">
-            <InputIcon />
-          </IconButton>
-        </Hidden> */}
-        {/* <Hidden lgUp> */}
+
         <IconButton color="inherit" onClick={onRightbarOpen}>
           <MenuIcon />
         </IconButton>
-        {/* </Hidden> */}
       </Toolbar>
     </AppBar>
   );

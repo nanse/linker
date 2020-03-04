@@ -13,7 +13,7 @@ import Lock from '@material-ui/icons/Lock';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 
 // layout
-import UploadLayout from '../components/Layouts/UploadLayout';
+import UploadLayout from '../components/Layouts/Upload/UploadLayout';
 
 // component
 import GridContainer from '../components/Grid/GridContainer.js';
