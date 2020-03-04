@@ -28,17 +28,22 @@ export const changeField = createAction(
 export const initializeForm = createAction(INITIALIZE_FORM, form => form); // register / login
 export const register = createAction(
   REGISTER,
-  ({ nickname, emailId, password, passwordConfirm }) => ({
+  ({
+    type,
+    nickname = '',
+    emailId,
+    password,
+    passwordConfirm = '',
+    agreementTerms,
+  }) => ({
+    type,
     nickname,
     emailId,
     password,
     passwordConfirm,
+    agreementTerms,
   }),
 );
-export const login = createAction(LOGIN, ({ username, password }) => ({
-  username,
-  password,
-}));
 
 // saga 생성
 const registerSaga = createRequestSaga(REGISTER, authAPI.register);
@@ -56,7 +61,7 @@ const initialState = {
     passwordConfirm: '',
   },
   login: {
-    username: '',
+    emailId: '',
     password: '',
   },
   auth: null,

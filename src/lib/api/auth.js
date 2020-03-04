@@ -14,6 +14,7 @@ export const register = ({
   mentorYn = 'Y',
   profileImg = '',
   pushKey = '',
+  agreementTerms = [1],
 }) =>
   client.post('/auth/svc/registerAndLogin', {
     type,
@@ -24,6 +25,7 @@ export const register = ({
     mentorYn,
     profileImg,
     pushKey,
+    agreementTerms,
   });
 
 // 로그인 상태 확인

@@ -50,7 +50,7 @@ const UploadPage = ({ history }) => {
   // 인증 체크
   useEffect(() => {
     try {
-      const auth = localStorage.getItem('auth');
+      const auth = sessionStorage.getItem('auth');
       if (!auth) {
         dispatch(
           openModal({
