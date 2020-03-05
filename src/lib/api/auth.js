@@ -28,6 +28,17 @@ export const register = ({
     agreementTerms,
   });
 
+// 약관 리스트
+export const listTerms = () => client.get('/auth/api/retrieveTerms');
+export const terms = ({ termNo }) =>
+  client.get(`/auth/api/retrieveTerms?termNo=${termNo}`);
+
+// 휴대폰인증
+export const sendSms = ({ phoneNumber }) =>
+  client.post('/auth/svc/sendSecretCode', {
+    phoneNumber,
+  });
+
 // 로그인 상태 확인
 export const ping = () => client.get('/edu/svc/channelList?category=&limit=10');
 

@@ -1,34 +1,85 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
+
+// @material-ui/core
+import { Button, CircularProgress } from '@material-ui/core';
 
 // @material-ui/icons
 import Email from '@material-ui/icons/Email';
 import People from '@material-ui/icons/People';
 import Lock from '@material-ui/icons/Lock';
-import { InputAdornment } from '@material-ui/core';
+import { InputAdornment, FormControlLabel, Checkbox } from '@material-ui/core';
 
-import Button from '../CustomButtons/Button.js';
+// import Button from '../CustomButtons/Button.js';
 import Card from '../Card/Card.js';
 import CardBody from '../Card/CardBody.js';
 import CardHeader from '../Card/CardHeader.js';
 import CardFooter from '../Card/CardFooter.js';
 import CustomInput from '../CustomInput/CustomInput.js';
 
-import styles from '../../assets/jss/material-kit-react/pages/registerPage.js';
-const useStyles = makeStyles(styles);
+import CountDownTimer from '../Timer/CountDownTimer';
 
-const RegisterForm = ({ cardAnimaton, onSubmit, onChange }) => {
+const useStyles = makeStyles(theme => ({
+  root: {
+    marginTop: theme.spacing(10),
+  },
+  cardHidden: {
+    opacity: '0',
+    transform: 'translate3d(0, -60px, 0)',
+  },
+  form: {
+    margin: '0',
+  },
+  cardHeader: {
+    width: 'auto',
+    textAlign: 'center',
+    marginLeft: '20px',
+    marginRight: '20px',
+    marginTop: '-40px',
+    padding: '20px 0',
+    marginBottom: '15px',
+  },
+
+  divider: {
+    marginTop: '30px',
+    marginBottom: '0px',
+    textAlign: 'center',
+  },
+  cardFooter: {
+    paddingTop: '0rem',
+    border: '0',
+    borderRadius: '6px',
+    justifyContent: 'center !important',
+  },
+  inputIconsColor: {
+    color: '#495057',
+  },
+  terms: {
+    textAlign: 'center',
+  },
+}));
+
+const RegisterForm = ({
+  cardAnimaton,
+  termsList = [],
+  termsLoading,
+  isSendSms,
+  sendSmsLoading,
+  onSubmit,
+  onChange,
+  onSendSms,
+  onShowTerms,
+}) => {
   const classes = useStyles();
 
   return (
-    <Card className={classes[cardAnimaton]}>
+    <Card className={clsx(classes[cardAnimaton], classes.root)}>
       <form className={classes.form} onSubmit={onSubmit}>
         <CardHeader color="primary" className={classes.cardHeader}>
           <h4>회원가입</h4>
         </CardHeader>
-        <p className={classes.divider}>
-          회원 가입하시고 풍성한 혜택을 누리세요 .
-        </p>
+
         <CardBody>
           <CustomInput
             labelText="닉네임"
@@ -38,12 +89,12 @@ const RegisterForm = ({ cardAnimaton, onSubmit, onChange }) => {
             }}
             inputProps={{
               type: 'text',
-              endAdornment: (
-                <InputAdornment position="end">
-                  <People className={classes.inputIconsColor} />
-                </InputAdornment>
-              ),
             }}
+            endAdornment={
+              <InputAdornment position="end">
+                <People className={classes.inputIconsColor} />
+              </InputAdornment>
+            }
             onChange={onChange}
           />
           <CustomInput
@@ -52,14 +103,12 @@ const RegisterForm = ({ cardAnimaton, onSubmit, onChange }) => {
             formControlProps={{
               fullWidth: true,
             }}
-            inputProps={{
-              type: 'email',
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Email className={classes.inputIconsColor} />
-                </InputAdornment>
-              ),
-            }}
+            endAdornment={
+              <InputAdornment position="end">
+                <Email className={classes.inputIconsColor}></Email>
+              </InputAdornment>
+            }
+            inputProps={{ type: 'email' }}
             onChange={onChange}
           />
           <CustomInput
@@ -68,13 +117,13 @@ const RegisterForm = ({ cardAnimaton, onSubmit, onChange }) => {
             formControlProps={{
               fullWidth: true,
             }}
+            endAdornment={
+              <InputAdornment position="end">
+                <Lock className={classes.inputIconsColor}></Lock>
+              </InputAdornment>
+            }
             inputProps={{
               type: 'password',
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Lock className={classes.inputIconsColor}></Lock>
-                </InputAdornment>
-              ),
               autoComplete: 'off',
             }}
             onChange={onChange}
@@ -85,21 +134,102 @@ const RegisterForm = ({ cardAnimaton, onSubmit, onChange }) => {
             formControlProps={{
               fullWidth: true,
             }}
+            endAdornment={
+              <InputAdornment position="end">
+                <Lock className={classes.inputIconsColor}></Lock>
+              </InputAdornment>
+            }
             inputProps={{
               type: 'password',
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Lock className={classes.inputIconsColor}></Lock>
-                </InputAdornment>
-              ),
               autoComplete: 'off',
             }}
             onChange={onChange}
           />
+
+          {/* 핸드폰 인증번호 */}
+          <CustomInput
+            labelText="휴대폰 인증"
+            id="phoneNumber"
+            formControlProps={{
+              fullWidth: true,
+            }}
+            disabled={sendSmsLoading || isSendSms}
+            endAdornment={
+              <InputAdornment position="end">
+                <Button
+                  color="secondary"
+                  size="small"
+                  onClick={onSendSms}
+                  disabled={sendSmsLoading || isSendSms}
+                >
+                  발송
+                </Button>
+              </InputAdornment>
+            }
+            inputProps={{
+              type: 'number',
+            }}
+            onChange={onChange}
+          />
+          {isSendSms && (
+            <>
+              <CustomInput
+                labelText="인증번호"
+                id="smsConfirmCd"
+                formControlProps={{
+                  fullWidth: true,
+                }}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <CountDownTimer />
+                  </InputAdornment>
+                }
+                inputProps={{
+                  type: 'number',
+                }}
+                onChange={onChange}
+              />
+            </>
+          )}
+
+          {/* 약관동의 */}
+          <div className={classes.terms}>
+            {termsLoading ? (
+              <CircularProgress></CircularProgress>
+            ) : (
+              termsList.map(terms => (
+                <>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        color="primary"
+                        id={terms.termNo}
+                        required={terms.termRequiredYn === 'Y'}
+                      />
+                    }
+                    label={`${terms.termNm} ${terms.termRequiredYn === 'Y' &&
+                      '(필수)'}`}
+                  />
+                  <Button
+                    color="secondary"
+                    onClick={() => onShowTerms(terms.termNo)}
+                  >
+                    약관보기
+                  </Button>
+                </>
+              ))
+            )}
+          </div>
         </CardBody>
         <CardFooter className={classes.cardFooter}>
-          <Button color="primary" size="lg" type="submit">
-            등록
+          <Button
+            variant="contained"
+            color="secondary"
+            size="large"
+            type="submit"
+            fullWidth
+          >
+            확인
           </Button>
         </CardFooter>
       </form>

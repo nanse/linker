@@ -24,7 +24,7 @@ export default function createRequestSaga(type, request) {
       if (response.data.resultCode === 0) {
         yield put({
           type: SUCCESS,
-          payload: response.data,
+          payload: response.data.result,
         });
       } else {
         let { resultCode, resultText } = response.data;
