@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 // @material-ui/core components
+import { makeStyles } from '@material-ui/core/styles';
 import { useTheme } from '@material-ui/styles';
 import { useMediaQuery } from '@material-ui/core';
 
@@ -9,9 +10,19 @@ import Sidebar from './components/Sidebar';
 // core components
 import ModalContainer from '../../../containers/modal/ModalContainer';
 
+const useStyles = makeStyles(theme => ({
+  content: {
+    marginTop: 80,
+    [theme.breakpoints.down('md')]: {
+      marginTop: 60,
+    },
+  },
+}));
+
 const UploadLayout = ({ children }) => {
   const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
+  const classes = useStyles();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('md'), {
     defaultMatches: true,
   });
 
@@ -34,7 +45,7 @@ const UploadLayout = ({ children }) => {
         color="primary"
         isDesktop={isDesktop}
       />
-      <main>{children}</main>
+      <main className={classes.content}>{children}</main>
       <Sidebar
         onClose={handleSidebarClose}
         open={shouldOpenSidebar}

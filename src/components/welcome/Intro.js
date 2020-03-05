@@ -1,10 +1,11 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography } from '@material-ui/core';
+
+import { Grid, Typography, IconButton } from '@material-ui/core';
+import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
 
 import Parallax from '../Parallax/Parallax';
-import Linker from '../../icons/Linker';
 
 const useStyles = makeStyles(theme => ({
   box: {
@@ -39,6 +40,7 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 300,
     color: '#ffffff',
     lineHeight: 1.42,
+    textAlign: 'center',
   },
   desc: {
     fontSize: 30,
@@ -47,12 +49,26 @@ const useStyles = makeStyles(theme => ({
     lineHeight: 1.42,
     textAlign: 'center',
   },
+  detail: {
+    marginTop: theme.spacing(10),
+    fontSize: 24,
+    color: '#ffffff',
+    lineHeight: 1.42,
+    textAlign: 'center',
+  },
+  arrowIcon: {
+    transform: 'rotate( 90deg )',
+  },
+  section: {
+    height: '90vh',
+  },
 }));
 
 const Intro = () => {
   const classes = useStyles();
   return (
     <>
+      {/* 1페이지 */}
       <Parallax filter image={require('../../assets/img/welcome-bg1.png')}>
         <Grid
           container
@@ -77,6 +93,7 @@ const Intro = () => {
           direction="column"
           justify="flex-start"
           alignItems="center"
+          spacing={3}
         >
           <Grid item xs={12} sm={12} lg={12}>
             <Typography className={classes.subtitle} variant="h2">
@@ -91,11 +108,44 @@ const Intro = () => {
               입시최강 서비스 링커에서 멘토분들을 사전 등록하는 행사를
               진행합니다.
             </Typography>
+            <Typography className={classes.detail} variant="body1">
+              자세히 보기
+            </Typography>
+            <Typography className={classes.desc} variant="body1">
+              <IconButton>
+                <DoubleArrowIcon
+                  className={classes.arrowIcon}
+                  fontSize="large"
+                  style={{ fontSize: 60, color: '#fff' }}
+                ></DoubleArrowIcon>
+              </IconButton>
+            </Typography>
           </Grid>
         </Grid>
       </Parallax>
+
+      {/* 2페이지 */}
       <Parallax filter image={require('../../assets/img/welcome-bg2.png')}>
-        hello
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+          className={classes.section}
+        >
+          <Grid item xs={12} sm={12} lg={12}>
+            <Typography className={classes.subtitle} variant="h2">
+              정보의 불균형을 해소하는 사람들
+            </Typography>
+            <Typography className={classes.desc} variant="body1">
+              주식회사 링커는 Linker 서비스를 통해 멘토와 멘티를 연결하고 <br />
+              서로에게 필요한 정보를 공유하는 플랫폼을 만드는 회사입니다.
+              <br />
+              입시과정의 정보 불균형을 해소하고자 큰 뜻을 품은 사람들이 모인
+              회사 입니다.
+            </Typography>
+          </Grid>
+        </Grid>
       </Parallax>
       <Parallax filter image={require('../../assets/img/welcome-bg3.png')}>
         hello
