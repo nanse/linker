@@ -1,53 +1,54 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
-import { AppBar, Toolbar, Button, Hidden, IconButton } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
-import InputIcon from '@material-ui/icons/Input';
+import { AppBar, Toolbar, Button, IconButton } from '@material-ui/core';
+import PersonIcon from '@material-ui/icons/Person';
 
 const useStyles = makeStyles(theme => ({
   root: {
     boxShadow: 'none',
-    height: 80,
-    [theme.breakpoints.down('md')]: {
-      height: 60,
-    },
   },
   logo: {
-    marginLeft: theme.spacing(2),
-    width: 110,
-    height: 37,
-  },
-  toolbar: {
-    minHeight: 80,
-    [theme.breakpoints.down('md')]: {
-      minHeight: 60,
-    },
+    width: 70,
+    height: 23,
   },
   flexGrow: {
     flexGrow: 1,
   },
-  signOutButton: {
+  button: {
     marginLeft: theme.spacing(1),
   },
   buttonOutlined: {
-    marginLeft: theme.spacing(1),
     color: '#fff',
+  },
+  loginIcon: {
+    marginLeft: theme.spacing(1),
   },
 }));
 
 const Topbar = props => {
-  const { className, onSidebarOpen, ...rest } = props;
+  const { className, ...rest } = props;
+  const [isLogin, setIsLogin] = useState(false);
 
   const classes = useStyles();
 
+  useEffect(() => {
+    try {
+      const auth = sessionStorage.getItem('auth');
+      if (auth) {
+        setIsLogin(true);
+      }
+    } catch (error) {
+      console.log('sessionStorage not support..');
+    }
+  }, []);
+
   return (
     <AppBar {...rest} className={clsx(classes.root, className)}>
-      <Toolbar className={classes.toolbar}>
-        <RouterLink to="/welcome">
+      <Toolbar>
+        <RouterLink to="/">
           <img
             alt="Logo"
             className={classes.logo}
@@ -55,30 +56,43 @@ const Topbar = props => {
           />
         </RouterLink>
         <div className={classes.flexGrow} />
-        <Hidden mdDown>
-          <Button
-            variant="contained"
-            color="secondary"
-            size="large"
-            href="/register"
-          >
-            회원가입
-          </Button>
-          <Button
-            variant="outlined"
-            color="secondary"
-            size="large"
-            className={classes.buttonOutlined}
-            href="/login"
-          >
-            로그인
-          </Button>
-        </Hidden>
-        <Hidden lgUp>
-          <IconButton color="inherit" onClick={onSidebarOpen}>
-            <MenuIcon />
-          </IconButton>
-        </Hidden>
+        <Button
+          variant="outlined"
+          color="secondary"
+          size="small"
+          className={clsx(classes.buttonOutlined)}
+          href="/guide"
+        >
+          생기부 발급방법
+        </Button>
+        {isLogin ? (
+          <>
+            <IconButton href="upload">
+              <PersonIcon></PersonIcon>
+            </IconButton>
+          </>
+        ) : (
+          <>
+            <Button
+              variant="contained"
+              color="secondary"
+              size="small"
+              className={classes.button}
+              href="/register"
+            >
+              회원가입
+            </Button>
+            <Button
+              variant="outlined"
+              color="secondary"
+              size="small"
+              className={clsx(classes.button, classes.buttonOutlined)}
+              href="/login"
+            >
+              로그인
+            </Button>
+          </>
+        )}
       </Toolbar>
     </AppBar>
   );
@@ -86,7 +100,6 @@ const Topbar = props => {
 
 Topbar.propTypes = {
   className: PropTypes.string,
-  onSidebarOpen: PropTypes.func,
 };
 
 export default Topbar;

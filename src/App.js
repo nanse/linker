@@ -7,6 +7,7 @@ import UploadPage from './pages/UploadPage';
 import CompletePage from './pages/CompletePage';
 import ChatPage from './pages/ChatPage';
 import LoginPage from './pages/LoginPage';
+import GuidePage from './pages/GuidePage';
 
 import { Helmet } from 'react-helmet-async';
 
@@ -20,10 +21,11 @@ const App = () => {
       </Helmet>
       <Route component={ChatPage} path={'/chat'} />
       <Route component={LoginPage} path="/login" />
-      <Route component={WelcomePage} path="/welcome" />
+      <Route component={GuidePage} path="/guide" />
       <Route component={RegisterPage} path="/register" />
       <Route component={CompletePage} path="/complete" />
       <Route component={UploadPage} path="/upload" />
+      <Route component={WelcomePage} exact path="/" />
     </ThemeProvider>
   );
 };

@@ -22,7 +22,7 @@ import CountDownTimer from '../Timer/CountDownTimer';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    marginTop: theme.spacing(10),
+    marginTop: theme.spacing(6),
   },
   cardHidden: {
     opacity: '0',
@@ -68,8 +68,9 @@ const RegisterForm = ({
   sendSmsLoading,
   onSubmit,
   onChange,
-  onSendSms,
+  onSmsSend,
   onShowTerms,
+  onTermsClick,
 }) => {
   const classes = useStyles();
 
@@ -96,6 +97,7 @@ const RegisterForm = ({
               </InputAdornment>
             }
             onChange={onChange}
+            autoFocus
           />
           <CustomInput
             labelText="이메일"
@@ -149,6 +151,7 @@ const RegisterForm = ({
           {/* 핸드폰 인증번호 */}
           <CustomInput
             labelText="휴대폰 인증"
+            placeholder="숫자만 입력 하세요"
             id="phoneNumber"
             formControlProps={{
               fullWidth: true,
@@ -159,7 +162,7 @@ const RegisterForm = ({
                 <Button
                   color="secondary"
                   size="small"
-                  onClick={onSendSms}
+                  onClick={onSmsSend}
                   disabled={sendSmsLoading || isSendSms}
                 >
                   발송
@@ -198,13 +201,14 @@ const RegisterForm = ({
               <CircularProgress></CircularProgress>
             ) : (
               termsList.map(terms => (
-                <>
+                <div key={terms.termNo}>
                   <FormControlLabel
                     control={
                       <Checkbox
                         color="primary"
                         id={terms.termNo}
                         required={terms.termRequiredYn === 'Y'}
+                        onClick={() => onTermsClick(terms.termNo)}
                       />
                     }
                     label={`${terms.termNm} ${terms.termRequiredYn === 'Y' &&
@@ -216,7 +220,7 @@ const RegisterForm = ({
                   >
                     약관보기
                   </Button>
-                </>
+                </div>
               ))
             )}
           </div>

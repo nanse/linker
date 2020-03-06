@@ -15,7 +15,7 @@ const RegisterPage = () => {
   return (
     <UploadLayout>
       <Helmet>
-        <title>회원가입 하기 - Linker</title>
+        <title>회원가입 - Linker</title>
       </Helmet>
       <Parallax image={require('../assets/img/welcome-bg1.png')}>
         <GridContainer direction="column" justify="center" alignItems="center">

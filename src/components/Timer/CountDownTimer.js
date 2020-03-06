@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Typography } from '@material-ui/core';
 
 const Timer = () => {
   const [counter, setCounter] = useState(180);
@@ -17,11 +18,7 @@ const Timer = () => {
     return () => clearInterval(timer);
   }, [counter]);
 
-  return (
-    <>
-      <h3>{format(counter)}</h3>
-    </>
-  );
+  return <Typography variant="body1">{format(counter)}</Typography>;
 };
 
 export default Timer;

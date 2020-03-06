@@ -4,7 +4,6 @@ import MuiPaper from './MuiPaper';
 import MuiTableCell from './MuiTableCell';
 import MuiTableHead from './MuiTableHead';
 import MuiTypography from './MuiTypography';
-import MuiToolbar from './MuiToolbar';
 
 export default {
   MuiButton,
@@ -13,5 +12,4 @@ export default {
   MuiTableCell,
   MuiTableHead,
   MuiTypography,
-  MuiToolbar,
 };

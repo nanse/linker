@@ -16,6 +16,7 @@ import RegisterForm from '../../components/auth/RegisterForm';
 
 const RegisterContainer = ({ history }) => {
   const [cardAnimaton, setCardAnimation] = useState('cardHidden');
+  const [agreementTerms, setAgreementTerms] = useState([]);
 
   const dispatch = useDispatch();
   const {
@@ -61,8 +62,17 @@ const RegisterContainer = ({ history }) => {
     console.log(termNo);
   };
 
+  // 약관 체크
+  const handleTermsClick = termNo => {
+    if (agreementTerms.includes(termNo)) {
+      setAgreementTerms(agreementTerms.filter(item => item !== termNo));
+    } else {
+      setAgreementTerms(agreementTerms.concat(termNo));
+    }
+  };
+
   // 휴대폰 인증
-  const handleSendSms = useCallback(() => {
+  const handleSmsSend = useCallback(() => {
     const { phoneNumber } = form;
     // 폰번호가 없다면,,,
     if (!phoneNumber) {
@@ -75,6 +85,18 @@ const RegisterContainer = ({ history }) => {
       );
       return;
     }
+
+    if (phoneNumber.length !== 11) {
+      dispatch(
+        openModal({
+          title: '알림',
+          description: '올바른 핸드폰 번호로 입력 해주세요.',
+          showCancelbutton: false,
+        }),
+      );
+      return;
+    }
+
     dispatch(sendSms({ phoneNumber }));
   }, [form, dispatch]);
 
@@ -88,7 +110,7 @@ const RegisterContainer = ({ history }) => {
       passwordConfirm,
       phoneNumber,
       smsConfirmCd,
-      sendSms,
+      isSendSms,
     } = form;
 
     // 하나라도 비어있다면
@@ -120,7 +142,7 @@ const RegisterContainer = ({ history }) => {
     }
 
     // 휴대폰 인증을 않받았다면,
-    if (!sendSms) {
+    if (!isSendSms) {
       dispatch(
         openModal({
           title: '알림',
@@ -131,12 +153,12 @@ const RegisterContainer = ({ history }) => {
       return;
     }
 
-    // 약관동의를 안했다면,
-    if (!sendSms) {
+    // 휴대폰 인증 번호를 입력 안했을경우,
+    if (!smsConfirmCd) {
       dispatch(
         openModal({
           title: '알림',
-          description: '휴대폰 인증을 받아주세요.',
+          description: '휴대폰 인증 번호를 입력해주세요.',
           showCancelbutton: false,
         }),
       );
@@ -149,16 +171,25 @@ const RegisterContainer = ({ history }) => {
         emailId,
         password,
         passwordConfirm,
-        agreementTerms: [1],
+        phoneNumber,
+        smsConfirmCd,
+        agreementTerms,
       }),
     );
   };
 
   // 컴포넌트가 처음 렌더링 될 때 form 을 초기화함
   useEffect(() => {
+    try {
+      const auth = sessionStorage.getItem('auth');
+      // 인증 정보가 있으면 upload 페이지로 이동합니다.
+      if (auth) {
+        history.push('/upload');
+      }
+    } catch (error) {}
     dispatch(initializeForm('register'));
     dispatch(listTerms());
-  }, [dispatch]);
+  }, [dispatch, history]);
 
   // 회원가입 성공 / 실패 처리
   useEffect(() => {
@@ -180,7 +211,7 @@ const RegisterContainer = ({ history }) => {
         sessionStorage.setItem('auth', JSON.stringify(auth));
         history.push('/upload');
       } catch (e) {
-        console.log('localStorage is not working');
+        console.log('sessionStorage is not working');
       }
     }
   }, [auth, authError, dispatch, history]);
@@ -191,7 +222,8 @@ const RegisterContainer = ({ history }) => {
       onChange={handleChange}
       onSubmit={handleSubmit}
       onShowTerms={handleShowTerms}
-      onSendSms={handleSendSms}
+      onSmsSend={handleSmsSend}
+      onTermsClick={handleTermsClick}
       termsList={termsList}
       termsLoading={termsLoading}
       isSendSms={isSendSms}

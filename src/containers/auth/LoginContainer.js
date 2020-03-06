@@ -81,7 +81,7 @@ const RegisterContainer = ({ history }) => {
     if (auth) {
       try {
         sessionStorage.setItem('auth', JSON.stringify(auth.result));
-        history.push('/welcome');
+        history.push('/upload');
       } catch (e) {
         console.log('localStorage is not working');
       }

@@ -22,6 +22,8 @@ const AskModal = ({
 }) => {
   return (
     <Dialog
+      disableBackdropClick
+      disableEscapeKeyDown
       open={sw}
       onClose={onCancel}
       aria-labelledby="alert-dialog-title"

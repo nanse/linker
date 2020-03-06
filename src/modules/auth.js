@@ -46,6 +46,8 @@ export const register = createAction(
     emailId,
     password,
     passwordConfirm = '',
+    phoneNumber,
+    smsConfirmCd,
     agreementTerms,
   }) => ({
     type,
@@ -53,6 +55,8 @@ export const register = createAction(
     emailId,
     password,
     passwordConfirm,
+    phoneNumber,
+    smsConfirmCd,
     agreementTerms,
   }),
 );

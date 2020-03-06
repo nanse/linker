@@ -30,10 +30,10 @@ client.defaults.baseURL = REACT_APP_API_URL;
 */
 
 client.interceptors.request.use(function(config) {
-  const a = localStorage.getItem('auth');
+  const a = sessionStorage.getItem('auth');
   const auth = a ? JSON.parse(a) : null;
   if (auth) {
-    console.log('> localStorage: auth: ', auth.token);
+    console.log('> sessionStorage: auth: ', auth.token);
     config.headers.common['authorization'] = auth.token;
     config.headers.common['hipId'] = auth.hipId;
   }
