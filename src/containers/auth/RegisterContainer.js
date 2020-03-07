@@ -213,6 +213,7 @@ const RegisterContainer = ({ history }) => {
       dispatch(
         openModal({
           title: '',
+          isTerms: true,
           description: termsContent.termContent,
           showCancelbutton: false,
         }),
