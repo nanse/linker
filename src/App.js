@@ -8,6 +8,7 @@ import CompletePage from './pages/CompletePage';
 import ChatPage from './pages/ChatPage';
 import LoginPage from './pages/LoginPage';
 import GuidePage from './pages/GuidePage';
+import PasswordPage from './pages/PasswordPage';
 
 import { Helmet } from 'react-helmet-async';
 
@@ -21,6 +22,7 @@ const App = () => {
       </Helmet>
       <Route component={ChatPage} path={'/chat'} />
       <Route component={LoginPage} path="/login" />
+      <Route component={PasswordPage} path="/password" />
       <Route component={GuidePage} path="/guide" />
       <Route component={RegisterPage} path="/register" />
       <Route component={CompletePage} path="/complete" />

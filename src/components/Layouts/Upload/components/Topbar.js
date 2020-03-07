@@ -67,7 +67,7 @@ const Topbar = props => {
         </Button>
         {isLogin ? (
           <>
-            <IconButton href="upload" color="">
+            <IconButton href="upload">
               <CloudUploadIcon style={{ color: '#fff' }}></CloudUploadIcon>
             </IconButton>
           </>

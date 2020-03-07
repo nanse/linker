@@ -34,6 +34,18 @@ const [SEND_SMS, SEND_SMS_SUCCESS, SEND_SMS_FAILURE] = createRequestActionTypes(
   'auth/SEND_SMS',
 );
 
+// 비밀번호 찾기 - 휴대폰인증
+const [PASSWORD, PASSWORD_SUCCESS, PASSWORD_FAILURE] = createRequestActionTypes(
+  'auth/PASSWORD',
+);
+
+// 비밀번호 업데이트
+const [
+  PASSWORD_UPDATE,
+  PASSWORD_UPDATE_SUCCESS,
+  PASSWORD_UPDATE_FAILURE,
+] = createRequestActionTypes('auth/PASSWORD_UPDATE');
+
 export const changeField = createAction(
   CHANGE_FIELD,
   ({ form, key, value }) => ({
@@ -74,12 +86,30 @@ export const sendSms = createAction(SEND_SMS, ({ phoneNumber }) => ({
   phoneNumber,
 }));
 
+export const password = createAction(
+  PASSWORD,
+  ({ phoneNumber, emailId, smsConfirmCd }) => ({
+    phoneNumber,
+    emailId,
+    smsConfirmCd,
+  }),
+);
+
+export const passwordUpdate = createAction(PASSWORD_UPDATE, ({ password }) => ({
+  password,
+}));
+
 // saga 생성
 const registerSaga = createRequestSaga(REGISTER, authAPI.register);
 const loginSaga = createRequestSaga(LOGIN, authAPI.login);
 const listTermsSaga = createRequestSaga(LIST_TERMS, authAPI.listTerms);
 const termsSaga = createRequestSaga(TERMS, authAPI.terms);
 const sendSmsSaga = createRequestSaga(SEND_SMS, authAPI.sendSms);
+const passwordSaga = createRequestSaga(PASSWORD, authAPI.password);
+const passwordUpdateSaga = createRequestSaga(
+  PASSWORD_UPDATE,
+  authAPI.passwordUpdate,
+);
 
 export function* authSaga() {
   yield takeLatest(REGISTER, registerSaga);
@@ -87,6 +117,8 @@ export function* authSaga() {
   yield takeLatest(LIST_TERMS, listTermsSaga);
   yield takeLatest(TERMS, termsSaga);
   yield takeLatest(SEND_SMS, sendSmsSaga);
+  yield takeLatest(PASSWORD, passwordSaga);
+  yield takeLatest(PASSWORD_UPDATE, passwordUpdateSaga);
 }
 
 const initialState = {
@@ -106,6 +138,8 @@ const initialState = {
   },
   terms: {},
   termsDetail: '',
+  passwordAuth: false,
+  isPasswordUpdate: false,
   auth: null,
   authError: null,
 };
@@ -177,6 +211,28 @@ const auth = handleActions(
       authError: error,
       isSendSms: false,
     }),
+    // 비밀번호 찾기 성공
+    [PASSWORD_SUCCESS]: (state, { payload }) =>
+      produce(state, draft => {
+        draft.passwordAuth = true;
+      }),
+    // 비밀번호 찾기 실패
+    [PASSWORD_FAILURE]: (state, { payload: error }) =>
+      produce(state, draft => {
+        draft.authError = error;
+        draft.passwordAuth = false;
+      }),
+    // 비밀번호 업데이트 성공
+    [PASSWORD_UPDATE_SUCCESS]: (state, { payload }) =>
+      produce(state, draft => {
+        draft.isPasswordUpdate = true;
+      }),
+    // 비밀번호 찾기 실패
+    [PASSWORD_UPDATE_FAILURE]: (state, { payload: error }) =>
+      produce(state, draft => {
+        draft.authError = error;
+        draft.isPasswordUpdate = false;
+      }),
   },
   initialState,
 );

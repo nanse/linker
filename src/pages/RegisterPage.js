@@ -19,7 +19,7 @@ const RegisterPage = () => {
       </Helmet>
       <Parallax image={require('../assets/img/welcome-bg1.png')}>
         <GridContainer direction="column" justify="center" alignItems="center">
-          <GridItem xs={12} sm={12} md={4}>
+          <GridItem xs={12} sm={12} md={6}>
             <RegisterContainer></RegisterContainer>
           </GridItem>
         </GridContainer>

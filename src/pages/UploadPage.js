@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
     marginLeft: '20px',
     marginRight: '20px',
     marginTop: '-40px',
-    padding: '20px 0',
+    padding: theme.spacing(1, 0),
     marginBottom: '15px',
   },
 
@@ -69,10 +69,12 @@ const UploadPage = ({ history }) => {
   const [file, setFile] = useState(null);
   const [file3, setFile3] = useState(null);
   const [selectedRecordSchoolFile, setSelectedRecordSchoolFile] = useState(
-    '생기부 업로드',
+    '생기부 업로드. pdf 가능',
   );
 
-  const [selectedReviewfile, setSelectedReview] = useState('후기 업로드');
+  const [selectedReviewfile, setSelectedReview] = useState(
+    '합격후기 업로드. pdf, word, excel 가능',
+  );
   const [pdfPassword, setPdfPassword] = useState('');
   const classes = useStyles();
 
@@ -239,13 +241,13 @@ const UploadPage = ({ history }) => {
                     formControlProps={{
                       fullWidth: true,
                     }}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <Lock className={classes.inputIconsColor} />
+                      </InputAdornment>
+                    }
                     inputProps={{
                       type: 'password',
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <Lock className={classes.inputIconsColor} />
-                        </InputAdornment>
-                      ),
                     }}
                     onChange={handleChange}
                   />
