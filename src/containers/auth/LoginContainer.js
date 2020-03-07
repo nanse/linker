@@ -80,10 +80,10 @@ const RegisterContainer = ({ history }) => {
     // 성공
     if (auth) {
       try {
-        sessionStorage.setItem('auth', JSON.stringify(auth.result));
+        sessionStorage.setItem('auth', JSON.stringify(auth));
         history.push('/upload');
       } catch (e) {
-        console.log('localStorage is not working');
+        console.log('sessionStorage is not working');
       }
     }
   }, [auth, authError, dispatch, history]);

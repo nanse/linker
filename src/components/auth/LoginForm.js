@@ -1,4 +1,6 @@
 import React from 'react';
+import clsx from 'clsx';
+
 import { makeStyles } from '@material-ui/core/styles';
 
 // @material-ui/icons
@@ -14,13 +16,48 @@ import CardFooter from '../Card/CardFooter.js';
 import CustomInput from '../CustomInput/CustomInput.js';
 
 import styles from '../../assets/jss/material-kit-react/pages/registerPage.js';
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(theme => ({
+  root: {
+    marginTop: theme.spacing(6),
+  },
+  cardHidden: {
+    opacity: '0',
+    transform: 'translate3d(0, -60px, 0)',
+  },
+  form: {
+    margin: '0',
+  },
+  cardHeader: {
+    width: 'auto',
+    textAlign: 'center',
+    marginLeft: '20px',
+    marginRight: '20px',
+    marginTop: '-40px',
+    padding: '20px 0',
+    marginBottom: '15px',
+  },
+
+  divider: {
+    marginTop: '30px',
+    marginBottom: '0px',
+    textAlign: 'center',
+  },
+  cardFooter: {
+    paddingTop: '0rem',
+    border: '0',
+    borderRadius: '6px',
+    justifyContent: 'center !important',
+  },
+  inputIconsColor: {
+    color: '#495057',
+  },
+}));
 
 const LoginForm = ({ cardAnimaton, onSubmit, onChange }) => {
   const classes = useStyles();
 
   return (
-    <Card className={classes[cardAnimaton]}>
+    <Card className={clsx(classes[cardAnimaton], classes.root)}>
       <form className={classes.form} onSubmit={onSubmit}>
         <CardHeader color="primary" className={classes.cardHeader}>
           <h4>로그인</h4>

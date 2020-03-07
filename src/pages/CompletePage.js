@@ -31,14 +31,6 @@ const useStyles = makeStyles(theme => ({
   desc: {
     color: '#fff',
   },
-  box: {
-    width: '30wh',
-    height: '10hv',
-    opacity: 0.9,
-    borderRadius: 16,
-    backgroundColor: '#2a2a2',
-    color: '#fff',
-  },
 }));
 
 const WelcomePage = () => {
