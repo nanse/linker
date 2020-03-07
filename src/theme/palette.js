@@ -43,8 +43,8 @@ export default {
     light: colors.red[400],
   },
   text: {
-    primary: colors.blueGrey[900],
-    secondary: colors.blueGrey[600],
+    primary: white,
+    secondary: '#4169e1',
     link: colors.blue[600],
   },
   background: {
