@@ -29,14 +29,16 @@ const AskModal = ({
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
+      <DialogTitle id="alert-dialog-title" color="text">
+        {title}
+      </DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-description">
+        <DialogContentText id="alert-dialog-description" color="primary">
           {description}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onConfirm} color="primary" autoFocus>
+        <Button onClick={onConfirm} color="secondary" autoFocus>
           {confirmText}
         </Button>
         {showCancelbutton && (

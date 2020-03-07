@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import { AppBar, Toolbar, Button, IconButton } from '@material-ui/core';
-import PersonIcon from '@material-ui/icons/Person';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -67,8 +67,8 @@ const Topbar = props => {
         </Button>
         {isLogin ? (
           <>
-            <IconButton href="upload">
-              <PersonIcon></PersonIcon>
+            <IconButton href="upload" color="">
+              <CloudUploadIcon style={{ color: '#fff' }}></CloudUploadIcon>
             </IconButton>
           </>
         ) : (

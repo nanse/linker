@@ -10,6 +10,9 @@ import Parallax from '../Parallax/Parallax';
 const useStyles = makeStyles(theme => ({
   container: {
     textAlign: 'center',
+    '& h1,& h2,& h4': {
+      color: '#fff',
+    },
   },
   box: {
     margin: '32px auto',
@@ -105,7 +108,7 @@ const Intro = () => {
               </Typography>
 
               <div className={classes.goDetail}>
-                <Typography color="" variant="body1">
+                <Typography variant="body1" style={{ color: '#fff' }}>
                   자세히 보기
                 </Typography>
                 <Typography variant="body1">

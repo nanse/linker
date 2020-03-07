@@ -24,6 +24,11 @@ const [
   LIST_TERMS_FAILURE,
 ] = createRequestActionTypes('auth/LIST_TERMS');
 
+// 약관 상세
+const [TERMS, TERMS_SUCCESS, TERMS_FAILURE] = createRequestActionTypes(
+  'auth/TERMS',
+);
+
 // 휴대폰인증
 const [SEND_SMS, SEND_SMS_SUCCESS, SEND_SMS_FAILURE] = createRequestActionTypes(
   'auth/SEND_SMS',
@@ -62,6 +67,9 @@ export const register = createAction(
 );
 
 export const listTerms = createAction(LIST_TERMS);
+export const terms = createAction(TERMS, ({ termNo }) => ({
+  termNo,
+}));
 export const sendSms = createAction(SEND_SMS, ({ phoneNumber }) => ({
   phoneNumber,
 }));
@@ -70,12 +78,14 @@ export const sendSms = createAction(SEND_SMS, ({ phoneNumber }) => ({
 const registerSaga = createRequestSaga(REGISTER, authAPI.register);
 const loginSaga = createRequestSaga(LOGIN, authAPI.login);
 const listTermsSaga = createRequestSaga(LIST_TERMS, authAPI.listTerms);
+const termsSaga = createRequestSaga(TERMS, authAPI.terms);
 const sendSmsSaga = createRequestSaga(SEND_SMS, authAPI.sendSms);
 
 export function* authSaga() {
   yield takeLatest(REGISTER, registerSaga);
   yield takeLatest(LOGIN, loginSaga);
   yield takeLatest(LIST_TERMS, listTermsSaga);
+  yield takeLatest(TERMS, termsSaga);
   yield takeLatest(SEND_SMS, sendSmsSaga);
 }
 
@@ -95,6 +105,7 @@ const initialState = {
     password: '',
   },
   terms: {},
+  termsDetail: '',
   auth: null,
   authError: null,
 };
@@ -132,14 +143,25 @@ const auth = handleActions(
       ...state,
       authError: error,
     }),
-    // 약관 가져오기 성공
+    // 약관 리스트 가져오기 성공
     [LIST_TERMS_SUCCESS]: (state, { payload: terms }) => ({
       ...state,
       authError: null,
       terms,
     }),
-    // 약관 가져오기 실패
+    // 약관 리스트 가져오기 실패
     [LIST_TERMS_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      authError: error,
+    }),
+    // 약관 가져오기 성공
+    [TERMS_SUCCESS]: (state, { payload: termsDetail }) => ({
+      ...state,
+      authError: null,
+      termsDetail,
+    }),
+    // 약관 가져오기 실패
+    [TERMS_FAILURE]: (state, { payload: error }) => ({
       ...state,
       authError: error,
     }),

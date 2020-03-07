@@ -8,6 +8,7 @@ import {
   changeField,
   initializeForm,
   register,
+  terms,
   listTerms,
   sendSms,
 } from '../../modules/auth';
@@ -23,6 +24,8 @@ const RegisterContainer = ({ history }) => {
     form,
     auth,
     termsList,
+    termsListLoading,
+    termsContent,
     termsLoading,
     sendSmsLoading,
     isSendSms,
@@ -31,12 +34,17 @@ const RegisterContainer = ({ history }) => {
     form: auth.register,
     auth: auth.auth,
     termsList: auth.terms.termList,
-    termsLoading: loading['auth/LIST_TERMS'],
+    termsListLoading: loading['auth/LIST_TERMS'],
+    termsContent: auth.termsDetail,
+    termsLoading: loading['auth/TERMS'],
     sendSmsLoading: loading['auth/SEND_SMS'],
     isSendSms: auth.register.isSendSms,
     authError: auth.authError,
   }));
 
+  // **
+  // handler
+  // **
   setTimeout(function() {
     setCardAnimation('');
   }, 700);
@@ -59,7 +67,11 @@ const RegisterContainer = ({ history }) => {
 
   // 약관보기
   const handleShowTerms = termNo => {
-    console.log(termNo);
+    dispatch(
+      terms({
+        termNo,
+      }),
+    );
   };
 
   // 약관 체크
@@ -178,6 +190,10 @@ const RegisterContainer = ({ history }) => {
     );
   };
 
+  // **
+  // useEffect
+  // **
+
   // 컴포넌트가 처음 렌더링 될 때 form 을 초기화함
   useEffect(() => {
     try {
@@ -190,6 +206,20 @@ const RegisterContainer = ({ history }) => {
     dispatch(initializeForm('register'));
     dispatch(listTerms());
   }, [dispatch, history]);
+
+  useEffect(() => {
+    // 성공
+    if (termsContent) {
+      dispatch(
+        openModal({
+          title: '',
+          description: termsContent.termContent,
+          showCancelbutton: false,
+        }),
+      );
+      return;
+    }
+  }, [termsContent]);
 
   // 회원가입 성공 / 실패 처리
   useEffect(() => {
@@ -225,7 +255,7 @@ const RegisterContainer = ({ history }) => {
       onSmsSend={handleSmsSend}
       onTermsClick={handleTermsClick}
       termsList={termsList}
-      termsLoading={termsLoading}
+      termsListLoading={termsListLoading}
       isSendSms={isSendSms}
       sendSmsLoading={sendSmsLoading}
     ></RegisterForm>

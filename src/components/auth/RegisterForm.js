@@ -63,7 +63,7 @@ const useStyles = makeStyles(theme => ({
 const RegisterForm = ({
   cardAnimaton,
   termsList = [],
-  termsLoading,
+  termsListLoading,
   isSendSms,
   sendSmsLoading,
   onSubmit,
@@ -197,7 +197,7 @@ const RegisterForm = ({
 
           {/* 약관동의 */}
           <div className={classes.terms}>
-            {termsLoading ? (
+            {termsListLoading ? (
               <CircularProgress></CircularProgress>
             ) : (
               termsList.map(terms => (
