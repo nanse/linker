@@ -37,6 +37,10 @@ const RegisterForm = ({
   termsList = [],
   termsListLoading,
   isSendSms,
+  isEmail,
+  emailErrorMesage,
+  isNickname,
+  nicknameErrorMesage,
   sendSmsLoading,
   onSubmit,
   onChange,
@@ -52,6 +56,9 @@ const RegisterForm = ({
         <CustomInput
           labelText="닉네임"
           id="nickname"
+          success={isNickname}
+          error={isNickname === undefined ? undefined : !isNickname}
+          helperText={nicknameErrorMesage}
           formControlProps={{
             fullWidth: true,
           }}
@@ -69,6 +76,9 @@ const RegisterForm = ({
         <CustomInput
           labelText="이메일"
           id="emailId"
+          success={isEmail}
+          error={isEmail === undefined ? undefined : !isEmail}
+          helperText={emailErrorMesage}
           formControlProps={{
             fullWidth: true,
           }}

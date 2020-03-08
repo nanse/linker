@@ -6,9 +6,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Snack from '@material-ui/core/SnackbarContent';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 // @material-ui/icons
 import Close from '@material-ui/icons/Close';
-// core components
 
 import styles from '../../assets/jss/material-kit-react/components/snackbarContentStyle.js';
 
@@ -37,7 +37,7 @@ export default function SnackbarContent(props) {
   let snackIcon = null;
   switch (typeof icon) {
     case 'object':
-      snackIcon = <props.icon className={classes.icon} />;
+      snackIcon = <icon />;
       break;
     case 'string':
       snackIcon = <Icon className={classes.icon}>{props.icon}</Icon>;
@@ -50,7 +50,7 @@ export default function SnackbarContent(props) {
     <Snack
       message={
         <div>
-          {snackIcon}
+          <InfoOutlinedIcon />
           {message}
           {close !== undefined ? action : null}
         </div>

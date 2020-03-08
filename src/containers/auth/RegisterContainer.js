@@ -11,6 +11,8 @@ import {
   terms,
   listTerms,
   sendSms,
+  emailDuplicateCheck,
+  nicknameDuplicateCheck,
 } from '../../modules/auth';
 
 import RegisterForm from '../../components/auth/RegisterForm';
@@ -26,9 +28,12 @@ const RegisterContainer = ({ history }) => {
     termsList,
     termsListLoading,
     termsContent,
-    termsLoading,
     sendSmsLoading,
     isSendSms,
+    isEmail,
+    emailErrorMesage,
+    isNickname,
+    nicknameErrorMesage,
     authError,
   } = useSelector(({ auth, loading }) => ({
     form: auth.register,
@@ -36,9 +41,12 @@ const RegisterContainer = ({ history }) => {
     termsList: auth.terms.termList,
     termsListLoading: loading['auth/LIST_TERMS'],
     termsContent: auth.termsDetail,
-    termsLoading: loading['auth/TERMS'],
     sendSmsLoading: loading['auth/SEND_SMS'],
     isSendSms: auth.register.isSendSms,
+    isNickname: auth.valid.isNickname,
+    nicknameErrorMesage: auth.valid.nicknameErrorMesage,
+    isEmail: auth.valid.isEmail,
+    emailErrorMesage: auth.valid.emailErrorMesage,
     authError: auth.authError,
   }));
 
@@ -48,6 +56,11 @@ const RegisterContainer = ({ history }) => {
   setTimeout(function() {
     setCardAnimation('');
   }, 700);
+
+  const emailCheck = (str = '') => {
+    const regx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g;
+    return regx.test(str);
+  };
 
   // 인풋 변경 이벤트 핸들러
   const handleChange = useCallback(
@@ -61,6 +74,23 @@ const RegisterContainer = ({ history }) => {
           value,
         }),
       );
+
+      // nickname 중복체크
+      id === 'nickname' &&
+        dispatch(
+          nicknameDuplicateCheck({
+            value,
+          }),
+        );
+
+      // email 중복체크
+      id === 'emailId' &&
+        emailCheck(value) &&
+        dispatch(
+          emailDuplicateCheck({
+            value,
+          }),
+        );
     },
     [dispatch],
   );
@@ -134,6 +164,10 @@ const RegisterContainer = ({ history }) => {
           showCancelbutton: false,
         }),
       );
+      return;
+    }
+
+    if (!isEmail && !isNickname) {
       return;
     }
 
@@ -259,6 +293,10 @@ const RegisterContainer = ({ history }) => {
       termsListLoading={termsListLoading}
       isSendSms={isSendSms}
       sendSmsLoading={sendSmsLoading}
+      isNickname={isNickname}
+      nicknameErrorMesage={nicknameErrorMesage}
+      isEmail={isEmail}
+      emailErrorMesage={emailErrorMesage}
     ></RegisterForm>
   );
 };

@@ -26,7 +26,7 @@ import Parallax from '../components/Parallax/Parallax';
 
 // modules
 import { openModal } from '../modules/base';
-import { uploadRecord } from '../modules/record';
+import { uploadRecord, docs } from '../modules/record';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -71,17 +71,20 @@ const UploadPage = ({ history }) => {
   const [selectedRecordSchoolFile, setSelectedRecordSchoolFile] = useState(
     '생기부 업로드. pdf 가능',
   );
-
   const [selectedReviewfile, setSelectedReview] = useState(
     '합격후기 업로드. pdf, word, excel 가능',
   );
+  const [uploadedRecordFile, setUploadedRecordFile] = useState('');
+  const [uploadedReviewFile, setUploadedReviewFile] = useState('');
+
   const [pdfPassword, setPdfPassword] = useState('');
   const classes = useStyles();
 
   const dispatch = useDispatch();
-  const { record, recordError, loading } = useSelector(
+  const { record, mentoDocs, recordError, loading } = useSelector(
     ({ record, loading }) => ({
       record: record.record,
+      mentoDocs: record.mentoDocs,
       recordError: record.recordError,
       loading: loading['record/UPLOAD_RECORD'],
     }),
@@ -90,8 +93,9 @@ const UploadPage = ({ history }) => {
   const recordSchoolInput = useRef();
   const reviewInput = useRef();
 
-  // 인증 체크
+  // 초기 진입
   useEffect(() => {
+    // 01. 인증체크
     try {
       const auth = sessionStorage.getItem('auth');
       if (!auth) {
@@ -106,7 +110,18 @@ const UploadPage = ({ history }) => {
         return;
       }
     } catch (error) {}
+
+    // 02. Mento 업로드 파일내역 가져오기
+    dispatch(docs());
   }, [dispatch, history]);
+
+  // Mento 업로드 파일내역 가져오기 성공 / 실패
+  useEffect(() => {
+    if (mentoDocs) {
+      // TODO: API 확인후 최종작업하면됨.
+      console.log(mentoDocs);
+    }
+  }, [dispatch, mentoDocs, recordError]);
 
   // 업로드 성공 / 실패
   useEffect(() => {
@@ -122,8 +137,25 @@ const UploadPage = ({ history }) => {
       return;
     }
 
+    let uploadSuccessMessage = '정상으로 업로드 되었습니다.';
     if (record) {
-      history.push('/complete');
+      if (file && file3) {
+        uploadSuccessMessage =
+          '"생기부 / 합격후기" 정상으로 업로드 되었습니다.';
+      } else if (file && !file3) {
+        uploadSuccessMessage = '"생기부"가 정상으로 업로드 되었습니다.';
+      } else if (!file && file3) {
+        uploadSuccessMessage = '"합격후기"가 정상으로 업로드 되었습니다.';
+      }
+
+      dispatch(
+        openModal({
+          title: '알림',
+          description: uploadSuccessMessage,
+          showCancelbutton: false,
+          onConfirm: () => history.push('/complete'),
+        }),
+      );
     }
   }, [dispatch, history, record, recordError]);
 
@@ -211,11 +243,12 @@ const UploadPage = ({ history }) => {
                     hidden
                     ref={recordSchoolInput}
                     onChange={handleFileChange}
-                    accept=".xlsx,.xls,.doc,.docx,.pdf"
+                    accept=".pdf"
                   />
                   <CustomInput
                     labelText={selectedRecordSchoolFile}
                     id="recordSchoolFile"
+                    helperText={uploadedRecordFile}
                     disabled
                     formControlProps={{
                       fullWidth: true,
@@ -264,6 +297,7 @@ const UploadPage = ({ history }) => {
                   <CustomInput
                     labelText={selectedReviewfile}
                     id="reviewFile"
+                    helperText={uploadedReviewFile}
                     disabled
                     formControlProps={{
                       fullWidth: true,

@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const styles = {
   parallax: {
     height: '100vh',
-    maxHeight: '1300px',
+    maxHeight: '1500px',
     overflow: 'hidden',
     position: 'relative',
     backgroundPosition: 'center center',

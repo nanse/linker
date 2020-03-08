@@ -46,6 +46,20 @@ const [
   PASSWORD_UPDATE_FAILURE,
 ] = createRequestActionTypes('auth/PASSWORD_UPDATE');
 
+// 닉네임 중복체크
+const [
+  NICKNAME_CHECK,
+  NICKNAME_CHECK_SUCCESS,
+  NICKNAME_CHECK_FAILURE,
+] = createRequestActionTypes('auth/NICKNAME_CHECK');
+
+// 이메일 중복체크
+const [
+  EMAIL_CHECK,
+  EMAIL_CHECK_SUCCESS,
+  EMAIL_CHECK_FAILURE,
+] = createRequestActionTypes('auth/EMAIL_CHECK');
+
 export const changeField = createAction(
   CHANGE_FIELD,
   ({ form, key, value }) => ({
@@ -99,6 +113,20 @@ export const passwordUpdate = createAction(PASSWORD_UPDATE, ({ password }) => ({
   password,
 }));
 
+export const emailDuplicateCheck = createAction(
+  EMAIL_CHECK,
+  ({ value: email }) => ({
+    email,
+  }),
+);
+
+export const nicknameDuplicateCheck = createAction(
+  NICKNAME_CHECK,
+  ({ value: nickname }) => ({
+    nickname,
+  }),
+);
+
 // saga 생성
 const registerSaga = createRequestSaga(REGISTER, authAPI.register);
 const loginSaga = createRequestSaga(LOGIN, authAPI.login);
@@ -110,6 +138,15 @@ const passwordUpdateSaga = createRequestSaga(
   PASSWORD_UPDATE,
   authAPI.passwordUpdate,
 );
+const emailDuplicateCheckSaga = createRequestSaga(
+  EMAIL_CHECK,
+  authAPI.emailCheck,
+);
+
+const nicknameDuplicateCheckSaga = createRequestSaga(
+  NICKNAME_CHECK,
+  authAPI.nicknameCheck,
+);
 
 export function* authSaga() {
   yield takeLatest(REGISTER, registerSaga);
@@ -119,6 +156,8 @@ export function* authSaga() {
   yield takeLatest(SEND_SMS, sendSmsSaga);
   yield takeLatest(PASSWORD, passwordSaga);
   yield takeLatest(PASSWORD_UPDATE, passwordUpdateSaga);
+  yield takeLatest(EMAIL_CHECK, emailDuplicateCheckSaga);
+  yield takeLatest(NICKNAME_CHECK, nicknameDuplicateCheckSaga);
 }
 
 const initialState = {
@@ -140,6 +179,12 @@ const initialState = {
   termsDetail: '',
   passwordAuth: false,
   isPasswordUpdate: false,
+  valid: {
+    isNickname: undefined,
+    nicknameErrorMesage: null,
+    isEmail: undefined,
+    emailErrorMesage: null,
+  },
   auth: null,
   authError: null,
 };
@@ -232,6 +277,36 @@ const auth = handleActions(
       produce(state, draft => {
         draft.authError = error;
         draft.isPasswordUpdate = false;
+      }),
+    // email 중복체크 성공
+    [EMAIL_CHECK_SUCCESS]: (state, { payload }) =>
+      produce(state, draft => {
+        draft.valid.isEmail = payload.use === 0;
+        draft.valid.emailErrorMesage =
+          payload.use === 0
+            ? '사용할 수 있는 이메일입니다'
+            : '이미 등록되어 있는 이메일입니다';
+      }),
+    // email 중복체크 실패
+    [EMAIL_CHECK_FAILURE]: (state, { payload: error }) =>
+      produce(state, draft => {
+        draft.authError = error;
+        draft.isEmail = null;
+      }),
+    // nickname 중복체크 성공
+    [NICKNAME_CHECK_SUCCESS]: (state, { payload }) =>
+      produce(state, draft => {
+        draft.valid.isNickname = payload.use === 0;
+        draft.valid.nicknameErrorMesage =
+          payload.use === 0
+            ? '사용할 수 있는 닉네임입니다'
+            : '이미 등록되어 있는 닉네임입니다';
+      }),
+    // email 중복체크 실패
+    [NICKNAME_CHECK_FAILURE]: (state, { payload: error }) =>
+      produce(state, draft => {
+        draft.authError = error;
+        draft.isNickname = null;
       }),
   },
   initialState,

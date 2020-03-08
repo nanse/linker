@@ -58,6 +58,14 @@ export const passwordUpdate = ({ password }) =>
     password,
   });
 
+// email 중복체크
+export const emailCheck = ({ email }) =>
+  client.get(`/auth/api/retrieveEmail?emailId=${email}`);
+
+// nickname 중복체크
+export const nicknameCheck = ({ nickname }) =>
+  client.get(`/auth/api/retrieveNickname?nickname=${nickname}`);
+
 // 로그인 상태 확인
 export const check = () => client.get('/api/auth/check');
 

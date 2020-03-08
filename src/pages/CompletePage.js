@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
-import { Paper, Typography } from '@material-ui/core';
+import { Paper, Typography, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 // layout
@@ -15,13 +15,13 @@ const useStyles = makeStyles(theme => ({
   paper: {
     position: 'absolute',
     width: 300,
-    height: 240,
-    top: 'calc(50% - (500px / 2))',
+    height: 400,
+    top: 'calc(50% - (650px / 2))',
     left: 'calc(50% - (300px / 2))',
     backgroundColor: 'rgba(42, 42, 42, 0.9)',
     textAlign: 'center',
     '& > div': {
-      margin: theme.spacing(5),
+      margin: theme.spacing(3),
     },
   },
   img: {
@@ -51,6 +51,16 @@ const WelcomePage = () => {
           </div>
           <Typography variant="h4" className={classes.desc}>
             멘토 사전등록 <br></br>신청이 완료 되었습니다.
+            <br />
+            <br />
+            <br />
+            해당 브라우저를 종료하셔서 안전하게 로그아웃 하세요
+            <br />
+            <br />
+            <br />
+            <Button variant="contained" color="secondary">
+              브라우저 닫기
+            </Button>
           </Typography>
         </Paper>
       </Parallax>
