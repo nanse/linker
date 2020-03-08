@@ -31,13 +31,11 @@ const ModalContainer = () => {
   }));
 
   const handleConfirm = e => {
-    console.log('> handleConfirm:');
     onConfirm && onConfirm(e);
     dispatch(closeModal());
   };
 
   const handleCancel = e => {
-    console.log('> handleCancel: ');
     onCancel && onCancel(e);
     dispatch(closeModal());
   };

@@ -8,7 +8,7 @@ import WelcomeContainer from '../containers/welcome/WelcomeContainer';
 
 const WelcomePage = () => {
   return (
-    <UploadLayout>
+    <UploadLayout isParallax={false}>
       <ParallaxProvider>
         <WelcomeContainer />
       </ParallaxProvider>

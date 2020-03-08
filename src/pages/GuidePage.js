@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 const GuidePage = () => {
   const classes = useStyles();
   return (
-    <UploadLayout>
+    <UploadLayout isParallax={false}>
       <div className={classes.root}>
         <Grid
           container

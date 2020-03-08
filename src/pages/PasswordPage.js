@@ -8,6 +8,7 @@ import GridItem from '../components/Grid/GridItem.js';
 // layout
 import UploadLayout from '../components/Layouts/Upload/UploadLayout';
 import PasswordContainer from '../containers/auth/PasswordContainer';
+import Parallax from '../components/Parallax/Parallax';
 
 const PasswordPage = () => {
   return (

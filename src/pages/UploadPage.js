@@ -22,7 +22,6 @@ import CardHeader from '../components/Card/CardHeader.js';
 import CardBody from '../components/Card/CardBody.js';
 import CardFooter from '../components/Card/CardFooter.js';
 import CustomInput from '../components/CustomInput/CustomInput.js';
-import Parallax from '../components/Parallax/Parallax';
 
 // modules
 import { openModal } from '../modules/base';
@@ -222,121 +221,118 @@ const UploadPage = ({ history }) => {
       <Helmet>
         <title>업로드 - Linker</title>
       </Helmet>
+      <GridContainer justify="center">
+        <GridItem xs={12} sm={12} md={4}>
+          <Card className={clsx(classes[cardAnimaton], classes.root)}>
+            <form
+              className={classes.form}
+              onSubmit={handleSubmit}
+              encType="multipart/form-data"
+            >
+              <CardHeader color="primary" className={classes.cardHeader}>
+                <h4>파일 업로드</h4>
+              </CardHeader>
+              <CardBody>
+                {/* 생기부 */}
+                <input
+                  type="file"
+                  multiple
+                  hidden
+                  ref={recordSchoolInput}
+                  onChange={handleFileChange}
+                  accept=".pdf"
+                />
+                <CustomInput
+                  labelText={selectedRecordSchoolFile}
+                  id="recordSchoolFile"
+                  helperText={uploadedRecordFile}
+                  disabled
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                  inputProps={{
+                    type: 'text',
+                  }}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <Button
+                        color="secondary"
+                        size="small"
+                        onClick={onRecordShcoolUpload}
+                      >
+                        파일찾기
+                      </Button>
+                    </InputAdornment>
+                  }
+                />
+                <CustomInput
+                  labelText="생기부 pdf 비밀번호"
+                  id="pdfPassword"
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <Lock className={classes.inputIconsColor} />
+                    </InputAdornment>
+                  }
+                  inputProps={{
+                    type: 'password',
+                  }}
+                  onChange={handleChange}
+                />
 
-      <Parallax image={require('../assets/img/welcome-bg1.png')}>
-        <GridContainer justify="center">
-          <GridItem xs={12} sm={12} md={4}>
-            <Card className={clsx(classes[cardAnimaton], classes.root)}>
-              <form
-                className={classes.form}
-                onSubmit={handleSubmit}
-                encType="multipart/form-data"
-              >
-                <CardHeader color="primary" className={classes.cardHeader}>
-                  <h4>파일 업로드</h4>
-                </CardHeader>
-                <CardBody>
-                  {/* 생기부 */}
-                  <input
-                    type="file"
-                    multiple
-                    hidden
-                    ref={recordSchoolInput}
-                    onChange={handleFileChange}
-                    accept=".pdf"
-                  />
-                  <CustomInput
-                    labelText={selectedRecordSchoolFile}
-                    id="recordSchoolFile"
-                    helperText={uploadedRecordFile}
-                    disabled
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                    inputProps={{
-                      type: 'text',
-                    }}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <Button
-                          color="secondary"
-                          size="small"
-                          onClick={onRecordShcoolUpload}
-                        >
-                          파일찾기
-                        </Button>
-                      </InputAdornment>
-                    }
-                  />
-                  <CustomInput
-                    labelText="생기부 pdf 비밀번호"
-                    id="pdfPassword"
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <Lock className={classes.inputIconsColor} />
-                      </InputAdornment>
-                    }
-                    inputProps={{
-                      type: 'password',
-                    }}
-                    onChange={handleChange}
-                  />
-
-                  {/* 후기  */}
-                  <input
-                    type="file"
-                    multiple
-                    hidden
-                    ref={reviewInput}
-                    onChange={handleReviewFileChange}
-                    accept=".xlsx,.xls,.doc,.docx,.pdf"
-                  />
-                  <CustomInput
-                    labelText={selectedReviewfile}
-                    id="reviewFile"
-                    helperText={uploadedReviewFile}
-                    disabled
-                    formControlProps={{
-                      fullWidth: true,
-                    }}
-                    inputProps={{
-                      type: 'text',
-                    }}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <Button
-                          color="secondary"
-                          size="small"
-                          onClick={onReviewUpload}
-                        >
-                          파일찾기
-                        </Button>
-                      </InputAdornment>
-                    }
-                  />
-                </CardBody>
-                <CardFooter className={classes.cardFooter}>
-                  {loading ? (
-                    <CircularProgress></CircularProgress>
-                  ) : (
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      size="large"
-                      type="submit"
-                    >
-                      확인
-                    </Button>
-                  )}
-                </CardFooter>
-              </form>
-            </Card>
-          </GridItem>
-        </GridContainer>
-      </Parallax>
+                {/* 후기  */}
+                <input
+                  type="file"
+                  multiple
+                  hidden
+                  ref={reviewInput}
+                  onChange={handleReviewFileChange}
+                  accept=".xlsx,.xls,.doc,.docx,.pdf"
+                />
+                <CustomInput
+                  labelText={selectedReviewfile}
+                  id="reviewFile"
+                  helperText={uploadedReviewFile}
+                  disabled
+                  formControlProps={{
+                    fullWidth: true,
+                  }}
+                  inputProps={{
+                    type: 'text',
+                  }}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <Button
+                        color="secondary"
+                        size="small"
+                        onClick={onReviewUpload}
+                      >
+                        파일찾기
+                      </Button>
+                    </InputAdornment>
+                  }
+                />
+              </CardBody>
+              <CardFooter className={classes.cardFooter}>
+                {loading ? (
+                  <CircularProgress></CircularProgress>
+                ) : (
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    size="large"
+                    type="submit"
+                  >
+                    확인
+                  </Button>
+                )}
+              </CardFooter>
+            </form>
+          </Card>
+        </GridItem>
+      </GridContainer>
     </UploadLayout>
   );
 };

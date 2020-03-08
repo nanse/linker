@@ -15,13 +15,13 @@ const useStyles = makeStyles(theme => ({
   paper: {
     position: 'absolute',
     width: 300,
-    height: 400,
-    top: 'calc(50% - (650px / 2))',
+    height: 290,
+    top: 'calc(50% - (500px / 2))',
     left: 'calc(50% - (300px / 2))',
     backgroundColor: 'rgba(42, 42, 42, 0.9)',
     textAlign: 'center',
     '& > div': {
-      margin: theme.spacing(3),
+      margin: theme.spacing(4),
     },
   },
   img: {
@@ -35,6 +35,7 @@ const useStyles = makeStyles(theme => ({
 
 const WelcomePage = () => {
   const classes = useStyles();
+
   return (
     <UploadLayout>
       <Helmet>
@@ -50,17 +51,12 @@ const WelcomePage = () => {
             ></img>
           </div>
           <Typography variant="h4" className={classes.desc}>
-            멘토 사전등록 <br></br>신청이 완료 되었습니다.
+            멘토 사전등록 <br />
+            신청이 완료 되었습니다.
             <br />
             <br />
-            <br />
-            해당 브라우저를 종료하셔서 안전하게 로그아웃 하세요
-            <br />
-            <br />
-            <br />
-            <Button variant="contained" color="secondary">
-              브라우저 닫기
-            </Button>
+            해당 브라우저를 종료하셔서 <br />
+            안전하게 로그아웃 하세요.
           </Typography>
         </Paper>
       </Parallax>

@@ -40,13 +40,13 @@ const LoginForm = ({ cardAnimaton, onSubmit, onChange }) => {
           formControlProps={{
             fullWidth: true,
           }}
+          endAdornment={
+            <InputAdornment position="end">
+              <Email className={classes.inputIconsColor} />
+            </InputAdornment>
+          }
           inputProps={{
             type: 'email',
-            endAdornment: (
-              <InputAdornment position="end">
-                <Email className={classes.inputIconsColor} />
-              </InputAdornment>
-            ),
           }}
           onChange={onChange}
         />
@@ -56,13 +56,13 @@ const LoginForm = ({ cardAnimaton, onSubmit, onChange }) => {
           formControlProps={{
             fullWidth: true,
           }}
+          endAdornment={
+            <InputAdornment position="end">
+              <Lock className={classes.inputIconsColor}></Lock>
+            </InputAdornment>
+          }
           inputProps={{
             type: 'password',
-            endAdornment: (
-              <InputAdornment position="end">
-                <Lock className={classes.inputIconsColor}></Lock>
-              </InputAdornment>
-            ),
             autoComplete: 'off',
           }}
           onChange={onChange}

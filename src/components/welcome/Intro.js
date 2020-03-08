@@ -17,11 +17,12 @@ const useStyles = makeStyles(theme => ({
   box: {
     margin: '32px auto',
     padding: theme.spacing(2),
-    width: 128,
+    width: 129,
     height: 120,
     boxShadow: '0 0 3px 0 #050505',
     backgroundColor: 'rgba(65, 105, 225, 0.28)',
     textAlign: 'left',
+    wordBreak: 'normal',
   },
   section: {
     height: '90hv',
@@ -145,6 +146,8 @@ const Intro = () => {
           </Grid>
         </div>
       </Parallax>
+
+      {/* 3페이지 */}
       <Parallax filter image={require('../../assets/img/welcome-bg3.png')}>
         <div className={classes.container}>
           <Typography variant="h2" className={classes.subtitle2}>
@@ -157,6 +160,8 @@ const Intro = () => {
           </Typography>
         </div>
       </Parallax>
+
+      {/* 4페이지 */}
       <Parallax filter image={require('../../assets/img/welcome-bg4.png')}>
         <div className={classes.container}>
           <Typography variant="h2" className={classes.subtitle3}>
@@ -166,8 +171,7 @@ const Intro = () => {
             <strong>멘토링/과외 매칭 서비스 제공</strong>
           </Typography>
           <Typography variant="h4" className={classes.desc}>
-            멘토링/과외 매칭 서비스 제공 - 본인의 학업 활동 내용에 맞는
-            멘토링/과외 매칭 서비스 제공합니다.
+            본인의 학업 활동 내용에 맞는 멘토링/과외 매칭 서비스 제공합니다.
           </Typography>
 
           <Typography variant="h4" className={classes.subtitle4}>
@@ -197,6 +201,8 @@ const Intro = () => {
           </Typography>
         </div>
       </Parallax>
+
+      {/* 5페이지 */}
       <Parallax filter image={require('../../assets/img/welcome-bg5.png')}>
         <div className={classes.container}>
           <Typography variant="h2" className={classes.subtitle3}>

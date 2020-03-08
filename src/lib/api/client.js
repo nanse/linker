@@ -33,7 +33,7 @@ client.interceptors.request.use(function(config) {
   const a = sessionStorage.getItem('auth');
   const auth = a ? JSON.parse(a) : null;
   if (auth) {
-    console.log('> sessionStorage: auth: ', auth.token);
+    // console.log('> sessionStorage: auth: ', auth.token);
     config.headers.common['authorization'] = auth.token;
     config.headers.common['hipId'] = auth.hipId;
   }

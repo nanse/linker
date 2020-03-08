@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 // core components
 const styles = {
   parallax: {
-    height: '100vh',
+    minHeight: '100vh',
     maxHeight: '1500px',
     overflow: 'hidden',
     position: 'relative',
