@@ -119,6 +119,13 @@ const UploadPage = ({ history }) => {
     if (mentoDocs) {
       // TODO: API 확인후 최종작업하면됨.
       console.log(mentoDocs);
+      if (mentoDocs.file1) {
+        setUploadedRecordFile('이전에 업로드된 생기부가 있습니다.');
+      }
+
+      if (mentoDocs.file3) {
+        setUploadedReviewFile('이전에 업로드된 합격후기가 있습니다.');
+      }
     }
   }, [dispatch, mentoDocs, recordError]);
 
