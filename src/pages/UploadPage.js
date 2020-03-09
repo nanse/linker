@@ -240,7 +240,7 @@ const UploadPage = ({ history }) => {
                   hidden
                   ref={recordSchoolInput}
                   onChange={handleFileChange}
-                  accept=".pdf"
+                  accept="application/pdf"
                 />
                 <CustomInput
                   labelText={selectedRecordSchoolFile}
@@ -289,7 +289,7 @@ const UploadPage = ({ history }) => {
                   hidden
                   ref={reviewInput}
                   onChange={handleReviewFileChange}
-                  accept=".xlsx,.xls,.doc,.docx,.pdf"
+                  accept="application/pdf,.xlsx,.xls,.doc,.docx"
                 />
                 <CustomInput
                   labelText={selectedReviewfile}

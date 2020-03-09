@@ -8,4 +8,4 @@ export const uploadRecord = ({ fileFormData, pdfPassword = '' }) =>
   );
 
 // 멘토 업로드 파일 가져오기
-export const mentoDocs = () => client.get('/svc/retrieveMentorDocs');
+export const mentoDocs = () => client.get('/edu/svc/retrieveMentorDocs');

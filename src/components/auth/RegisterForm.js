@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
     color: '#495057',
   },
   terms: {
-    textAlign: 'center',
+    textAlign: 'left',
   },
 }));
 
@@ -178,22 +178,23 @@ const RegisterForm = ({
             <CircularProgress></CircularProgress>
           ) : (
             termsList.map(terms => (
-              <div key={terms.termNo}>
+              <div key={terms.termsNo}>
                 <FormControlLabel
                   control={
                     <Checkbox
                       color="primary"
-                      id={terms.termNo}
-                      required={terms.termRequiredYn === 'Y'}
-                      onClick={() => onTermsClick(terms.termNo)}
+                      id={terms.termsNo}
+                      required={terms.termsRequiredYn === 'Y'}
+                      onClick={() => onTermsClick(terms.termsNo)}
                     />
                   }
-                  label={`${terms.termNm} ${terms.termRequiredYn === 'Y' &&
-                    '(필수)'}`}
+                  label={`${terms.termsNm} ${
+                    terms.termsRequiredYn === 'Y' ? '(필수)' : '(선택)'
+                  }`}
                 />
                 <Button
                   color="secondary"
-                  onClick={() => onShowTerms(terms.termNo)}
+                  onClick={() => onShowTerms(terms.termsNo)}
                 >
                   약관보기
                 </Button>

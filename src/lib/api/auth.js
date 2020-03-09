@@ -34,8 +34,8 @@ export const register = ({
 
 // 약관 리스트
 export const listTerms = () => client.get('/auth/api/retrieveTerms');
-export const terms = ({ termNo }) =>
-  client.get(`/auth/api/retrieveTerms?termNo=${termNo}`);
+export const terms = ({ termsNo }) =>
+  client.get(`/auth/api/retrieveTerms?termsNo=${termsNo}`);
 
 // 휴대폰인증
 export const sendSms = ({ phoneNumber }) =>

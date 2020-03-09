@@ -38,7 +38,7 @@ const RegisterContainer = ({ history }) => {
   } = useSelector(({ auth, loading }) => ({
     form: auth.register,
     auth: auth.auth,
-    termsList: auth.terms.termList,
+    termsList: auth.terms.termsList,
     termsListLoading: loading['auth/LIST_TERMS'],
     termsContent: auth.termsDetail,
     sendSmsLoading: loading['auth/SEND_SMS'],
@@ -96,20 +96,20 @@ const RegisterContainer = ({ history }) => {
   );
 
   // 약관보기
-  const handleShowTerms = termNo => {
+  const handleShowTerms = termsNo => {
     dispatch(
       terms({
-        termNo,
+        termsNo,
       }),
     );
   };
 
   // 약관 체크
-  const handleTermsClick = termNo => {
-    if (agreementTerms.includes(termNo)) {
-      setAgreementTerms(agreementTerms.filter(item => item !== termNo));
+  const handleTermsClick = termsNo => {
+    if (agreementTerms.includes(termsNo)) {
+      setAgreementTerms(agreementTerms.filter(item => item !== termsNo));
     } else {
-      setAgreementTerms(agreementTerms.concat(termNo));
+      setAgreementTerms(agreementTerms.concat(termsNo));
     }
   };
 
@@ -248,7 +248,7 @@ const RegisterContainer = ({ history }) => {
         openModal({
           title: '',
           isTerms: true,
-          description: termsContent.termContent,
+          description: termsContent.termsContent,
           showCancelbutton: false,
         }),
       );
@@ -281,6 +281,7 @@ const RegisterContainer = ({ history }) => {
     }
   }, [auth, authError, dispatch, history]);
 
+  console.log('> termsList: ', termsList);
   return (
     <RegisterForm
       cardAnimaton={cardAnimaton}

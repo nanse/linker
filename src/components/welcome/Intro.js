@@ -79,7 +79,7 @@ const Intro = () => {
   return (
     <>
       {/* 1페이지 */}
-      <Parallax filter image={require('../../assets/img/welcome-bg1.png')}>
+      <Parallax filter image={require('../../assets/img/welcome-bg1.jpg')}>
         <div className={classes.container}>
           <Grid container justify="center">
             <Grid item xs={12} sm={12} lg={12}>
@@ -128,7 +128,7 @@ const Intro = () => {
       </Parallax>
 
       {/* 2페이지 */}
-      <Parallax filter image={require('../../assets/img/welcome-bg2.png')}>
+      <Parallax filter image={require('../../assets/img/welcome-bg2.jpg')}>
         <div className={classes.container}>
           <Grid container direction="row" justify="center" alignItems="stretch">
             <Grid item xs={12} sm={12} lg={12}>
@@ -148,7 +148,7 @@ const Intro = () => {
       </Parallax>
 
       {/* 3페이지 */}
-      <Parallax filter image={require('../../assets/img/welcome-bg3.png')}>
+      <Parallax filter image={require('../../assets/img/welcome-bg3.jpg')}>
         <div className={classes.container}>
           <Typography variant="h2" className={classes.subtitle2}>
             “Linker는 이런 서비스 입니다.”
@@ -162,7 +162,7 @@ const Intro = () => {
       </Parallax>
 
       {/* 4페이지 */}
-      <Parallax filter image={require('../../assets/img/welcome-bg4.png')}>
+      <Parallax filter image={require('../../assets/img/welcome-bg4.jpg')}>
         <div className={classes.container}>
           <Typography variant="h2" className={classes.subtitle3}>
             Linker가 제공하는 멘토회원에 대한 혜택
@@ -202,8 +202,8 @@ const Intro = () => {
         </div>
       </Parallax>
 
-      {/* 5페이지 */}
-      <Parallax filter image={require('../../assets/img/welcome-bg5.png')}>
+      {/* 5 페이지 */}
+      <Parallax filter image={require('../../assets/img/welcome-bg5.jpg')}>
         <div className={classes.container}>
           <Typography variant="h2" className={classes.subtitle3}>
             Linker가 약속하는 보안/안전성 지원금 10만원 지급

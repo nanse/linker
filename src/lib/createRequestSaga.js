@@ -19,7 +19,7 @@ export default function createRequestSaga(type, request) {
     // console.log('> request > payload:', action.payload);
     try {
       const response = yield call(request, action.payload);
-      // console.log(`> ${type}] ${response}`); ₩+-
+      // console.log(`> ${type}] ${JSON.stringifyresponse}`);
 
       if (response.data.resultCode === 0) {
         yield put({

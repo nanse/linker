@@ -5,11 +5,8 @@ import PropTypes from 'prop-types';
 // nodejs library that concatenates classes
 import classNames from 'classnames';
 // material-ui core components
-import { List, ListItem } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
-// @material-ui/icons
-import Favorite from '@material-ui/icons/Favorite';
 
 import styles from 'assets/jss/material-kit-react/components/footerStyle.js';
 
@@ -28,18 +25,16 @@ export default function Footer(props) {
   });
   return (
     <footer className={footerClasses}>
-      <div className={classes.container}>
-        <List className={classes.list}>
-          <ListItem className={classes.inlineBlock}>
-            Linker&copy; {1900 + new Date().getYear()}, made with{' '}
-            <Favorite className={classes.icon} /> by Linker
-          </ListItem>
-        </List>
-      </div>
+      <Typography color="primary" variant="caption">
+        상호명: 주시회사 링커 | 대표이사: 김동희 <br />
+        사업자등록번호: 621-86-16962 <br />
+        이메일: linker@ilinker.co.kr | 연락처 : 070-4117-0815 <br />
+        경기도 성남시 분당구 판교로 253 판교 이노밸리 B동 1004호
+      </Typography>
+      <Typography variant="body1">
+        Copyright&copy; {1900 + new Date().getYear()} linker. All Rights
+        Reserved
+      </Typography>
     </footer>
   );
 }
-
-Footer.propTypes = {
-  whiteFont: PropTypes.bool,
-};

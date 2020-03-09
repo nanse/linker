@@ -13,8 +13,6 @@ import { HelmetProvider } from 'react-helmet-async';
 
 import 'typeface-roboto';
 
-console.log(process.env.API_URL);
-
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
   rootReducer,

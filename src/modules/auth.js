@@ -93,8 +93,8 @@ export const register = createAction(
 );
 
 export const listTerms = createAction(LIST_TERMS);
-export const terms = createAction(TERMS, ({ termNo }) => ({
-  termNo,
+export const terms = createAction(TERMS, ({ termsNo }) => ({
+  termsNo,
 }));
 export const sendSms = createAction(SEND_SMS, ({ phoneNumber }) => ({
   phoneNumber,
