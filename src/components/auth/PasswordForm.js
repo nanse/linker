@@ -35,6 +35,7 @@ const LoginForm = ({
   onSmsSend,
   sendSmsLoading,
   isSendSms,
+  onExpired,
 }) => {
   const classes = useStyles();
 
@@ -94,8 +95,8 @@ const LoginForm = ({
                 fullWidth: true,
               }}
               endAdornment={
-                <InputAdornment position="end">
-                  <CountDownTimer />
+                <InputAdornment position="end" autoFocus>
+                  <CountDownTimer onExpired={onExpired} />
                 </InputAdornment>
               }
               inputProps={{

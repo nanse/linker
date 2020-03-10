@@ -47,6 +47,7 @@ const RegisterForm = ({
   onSmsSend,
   onShowTerms,
   onTermsClick,
+  onExpired,
 }) => {
   const classes = useStyles();
 
@@ -93,6 +94,7 @@ const RegisterForm = ({
         <CustomInput
           labelText="패스워드"
           id="password"
+          placeholder="패스워드는 최소 6자 이상 입력해주세요."
           formControlProps={{
             fullWidth: true,
           }}
@@ -161,13 +163,14 @@ const RegisterForm = ({
               }}
               endAdornment={
                 <InputAdornment position="end">
-                  <CountDownTimer />
+                  <CountDownTimer onExpired={onExpired} />
                 </InputAdornment>
               }
               inputProps={{
                 type: 'number',
               }}
               onChange={onChange}
+              autoFocus
             />
           </>
         )}

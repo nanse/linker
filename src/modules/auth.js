@@ -109,9 +109,13 @@ export const password = createAction(
   }),
 );
 
-export const passwordUpdate = createAction(PASSWORD_UPDATE, ({ password }) => ({
-  password,
-}));
+export const passwordUpdate = createAction(
+  PASSWORD_UPDATE,
+  ({ emailId, password }) => ({
+    emailId,
+    password,
+  }),
+);
 
 export const emailDuplicateCheck = createAction(
   EMAIL_CHECK,

@@ -42,7 +42,7 @@ const customInputStyle = {
     ...defaultFont,
     color: '#AAAAAA !important',
     fontWeight: '400',
-    fontSize: '14px',
+    fontSize: '16px',
     lineHeight: '1.42857',
     top: '10px',
     letterSpacing: 'unset',
@@ -66,9 +66,10 @@ const customInputStyle = {
   },
   input: {
     color: '#495057',
+    fontSize: '16px',
     height: 'unset',
     '&,&::placeholder': {
-      fontSize: '14px',
+      fontSize: '16px',
       fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
       fontWeight: '400',
       lineHeight: '1.42857',

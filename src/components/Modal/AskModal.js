@@ -18,7 +18,7 @@ const AskModal = ({
   onCancel,
   confirmText = '확인',
   cancelText = '취소',
-  showCancelbutton = true,
+  showCancelbutton = false,
 }) => {
   return (
     <Dialog

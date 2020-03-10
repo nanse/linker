@@ -8,7 +8,7 @@ import Topbar from './components/Topbar';
 import ModalContainer from '../../../containers/modal/ModalContainer';
 import Parallax from '../../Parallax/Parallax';
 import Footer from '../../Footer/Footer';
-
+import ScrollToTop from '../../common/ScrollToTop';
 const useStyles = makeStyles(theme => ({
   content: {
     boxShadow:
@@ -29,7 +29,7 @@ const UploadLayout = ({ children, isParallax = true }) => {
   const classes = useStyles();
 
   return (
-    <>
+    <ScrollToTop>
       <Topbar color="primary" />
       <main className={classes.content}>
         {isParallax && (
@@ -42,7 +42,7 @@ const UploadLayout = ({ children, isParallax = true }) => {
       </main>
       <Footer></Footer>
       <ModalContainer></ModalContainer>
-    </>
+    </ScrollToTop>
   );
 };
 

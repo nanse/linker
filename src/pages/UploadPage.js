@@ -266,6 +266,7 @@ const UploadPage = ({ history }) => {
                         color="secondary"
                         size="small"
                         onClick={onRecordShcoolUpload}
+                        autoFocus
                       >
                         파일찾기
                       </Button>
@@ -289,14 +290,14 @@ const UploadPage = ({ history }) => {
                   onChange={handleChange}
                 />
 
-                {/* 후기  */}
+                {/* 합격후기  */}
                 <input
                   type="file"
                   multiple
                   hidden
                   ref={reviewInput}
                   onChange={handleReviewFileChange}
-                  accept="application/pdf,.xlsx,.xls,.doc,.docx"
+                  accept="application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                 />
                 <CustomInput
                   labelText={selectedReviewfile}

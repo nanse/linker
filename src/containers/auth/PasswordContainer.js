@@ -88,6 +88,27 @@ const RegisterContainer = ({ history }) => {
     dispatch(sendSms({ phoneNumber }));
   }, [form, dispatch]);
 
+  // 휴대폰 인증 만료시
+  const handleSmsExpired = useCallback(() => {
+    dispatch(
+      openModal({
+        title: '알림',
+        description:
+          '휴대폰 인증 시간이 만료 되었습니다. 다시 재발급 받으세요.',
+        showCancelbutton: false,
+        onConfirm: () => {
+          dispatch(
+            changeField({
+              form: 'register',
+              key: 'isSendSms',
+              value: false,
+            }),
+          );
+        },
+      }),
+    );
+  }, [dispatch]);
+
   // 비밀번호 찾기 폼전송
   const handleSubmit = e => {
     e.preventDefault();
@@ -141,7 +162,7 @@ const RegisterContainer = ({ history }) => {
   // 비밀번호 업데이트 폼전송
   const handlePasswordUpdateSubmit = e => {
     e.preventDefault();
-    const { password, passwordConfirm } = form;
+    const { emailId, password, passwordConfirm } = form;
 
     // 하나라도 비어있다면
     if ([password, passwordConfirm].includes('')) {
@@ -173,6 +194,7 @@ const RegisterContainer = ({ history }) => {
 
     dispatch(
       passwordUpdate({
+        emailId,
         password,
       }),
     );
@@ -221,7 +243,7 @@ const RegisterContainer = ({ history }) => {
       dispatch(
         openModal({
           title: '알림',
-          description: '비밀번호가 변경 되었습니다. 다시 로그인해 주세요.',
+          description: '비밀번호가 변경되었습니다.',
           showCancelbutton: false,
           onConfirm: () => history.push('/login'),
         }),
@@ -240,6 +262,7 @@ const RegisterContainer = ({ history }) => {
           onSmsSend={handleSmsSend}
           isSendSms={isSendSms}
           sendSmsLoading={sendSmsLoading}
+          onExpired={handleSmsExpired}
         ></PasswordForm>
       )}
       {/* 휴대폰 인증 후 단계 */}

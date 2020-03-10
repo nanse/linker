@@ -22,8 +22,8 @@ function* openModalSaga({ payload }) {
   yield put(setModalSwich({ name: 'askModal', sw: true }));
 }
 function* closeModalSaga() {
-  yield put(setModalData({}));
   yield put(setModalSwich({ name: 'askModal', sw: false }));
+  yield put(setModalData({}));
 }
 export function* baseSaga() {
   yield takeLatest(OPEN_MODAL, openModalSaga);

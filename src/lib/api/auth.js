@@ -53,8 +53,9 @@ export const password = ({ phoneNumber, emailId, smsConfirmCd }) =>
   );
 
 // 비밀번호 업데이트
-export const passwordUpdate = ({ password }) =>
+export const passwordUpdate = ({ emailId, password }) =>
   client.post('/auth/api/updatePassword', {
+    emailId,
     password,
   });
 

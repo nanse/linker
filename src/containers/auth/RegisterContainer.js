@@ -142,6 +142,27 @@ const RegisterContainer = ({ history }) => {
     dispatch(sendSms({ phoneNumber }));
   }, [form, dispatch]);
 
+  // 휴대폰 인증 만료시
+  const handleSmsExpired = useCallback(() => {
+    dispatch(
+      openModal({
+        title: '알림',
+        description:
+          '휴대폰 인증 시간이 만료 되었습니다. 다시 재발급 받으세요.',
+        showCancelbutton: false,
+        onConfirm: () => {
+          dispatch(
+            changeField({
+              form: 'register',
+              key: 'isSendSms',
+              value: false,
+            }),
+          );
+        },
+      }),
+    );
+  }, [dispatch]);
+
   // form Submit 이벤트 핸들러
   const handleSubmit = e => {
     e.preventDefault();
@@ -281,7 +302,7 @@ const RegisterContainer = ({ history }) => {
     }
   }, [auth, authError, dispatch, history]);
 
-  console.log('> termsList: ', termsList);
+  // console.log('> termsList: ', termsList);
   return (
     <RegisterForm
       cardAnimaton={cardAnimaton}
@@ -298,6 +319,7 @@ const RegisterContainer = ({ history }) => {
       nicknameErrorMesage={nicknameErrorMesage}
       isEmail={isEmail}
       emailErrorMesage={emailErrorMesage}
+      onExpired={handleSmsExpired}
     ></RegisterForm>
   );
 };

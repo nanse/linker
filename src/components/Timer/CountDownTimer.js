@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Typography } from '@material-ui/core';
 
-const Timer = () => {
-  const [counter, setCounter] = useState(180);
+const Timer = ({ onExpired }) => {
+  const [counter, setCounter] = useState(180); // 180초 == 3분
 
   const format = time => {
     let seconds = time % 60;
@@ -13,8 +13,13 @@ const Timer = () => {
   };
 
   useEffect(() => {
+    counter === 0 && onExpired();
+
     const timer =
-      counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
+      counter > 0 &&
+      setInterval(() => {
+        setCounter(counter - 1);
+      }, 1000);
     return () => clearInterval(timer);
   }, [counter]);
 

@@ -39,6 +39,7 @@ const LoginForm = ({ cardAnimaton, onPasswordUpdateSubmit, onChange }) => {
         <CustomInput
           labelText="새로운 패스워드"
           id="password"
+          placeholder="패스워드는 최소 6자 이상 입력해주세요."
           formControlProps={{
             fullWidth: true,
           }}
