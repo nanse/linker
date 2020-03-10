@@ -7,12 +7,11 @@ import Topbar from './components/Topbar';
 // core components
 import ModalContainer from '../../../containers/modal/ModalContainer';
 import Parallax from '../../Parallax/Parallax';
-import Footer from '../../Footer/Footer';
 import ScrollToTop from '../../common/ScrollToTop';
+
+import Footer from '../../Footer/Footer';
 const useStyles = makeStyles(theme => ({
   content: {
-    boxShadow:
-      '0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)',
     marginTop: 64,
     [theme.breakpoints.down('md')]: {
       marginTop: 56,
@@ -40,8 +39,9 @@ const UploadLayout = ({ children, isParallax = true }) => {
 
         {!isParallax && children}
       </main>
-      <Footer></Footer>
       <ModalContainer></ModalContainer>
+
+      <Footer></Footer>
     </ScrollToTop>
   );
 };

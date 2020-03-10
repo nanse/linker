@@ -5,5 +5,8 @@ const footerStyle = {
     backgroundColor: '#2a2a2a',
     '& > *': { color: '#e9e9e9' },
   },
+  marginTop: {
+    marginTop: '30px',
+  },
 };
 export default footerStyle;

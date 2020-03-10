@@ -14,10 +14,11 @@ const useStyles = makeStyles(styles);
 
 export default function Footer(props) {
   const classes = useStyles();
-  const { whiteFont } = props;
+  const { whiteFont, marginTop } = props;
   const footerClasses = classNames({
     [classes.footer]: true,
     [classes.footerWhiteFont]: whiteFont,
+    [classes.marginTop]: marginTop,
   });
   const aClasses = classNames({
     [classes.a]: true,

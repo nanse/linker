@@ -2,27 +2,33 @@ import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Grid, Typography, IconButton } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
 
 import Parallax from '../Parallax/Parallax';
 
 const useStyles = makeStyles(theme => ({
   container: {
-    textAlign: 'center',
-    '& h1,& h2,& h4': {
-      color: '#fff',
-    },
+    padding: theme.spacing(0, 3),
   },
   box: {
-    margin: '32px auto',
-    padding: theme.spacing(2),
-    width: 129,
-    height: 120,
+    margin: theme.spacing(3, 0),
+    padding: theme.spacing(3, 2),
     boxShadow: '0 0 3px 0 #050505',
     backgroundColor: 'rgba(65, 105, 225, 0.28)',
-    textAlign: 'left',
+    textAlign: 'center',
     wordBreak: 'normal',
+  },
+  title: {
+    margin: '1.75rem 0 0.875rem',
+    textDecoration: 'none',
+    fontWeight: '700',
+    display: 'inline-block',
+    position: 'relative',
+    marginTop: '30px',
+    minHeight: '32px',
+    color: '#FFFFFF',
+    textDecoration: 'none',
   },
   section: {
     height: '90hv',
@@ -72,6 +78,10 @@ const useStyles = makeStyles(theme => ({
   arrowIcon: {
     transform: 'rotate( 90deg )',
   },
+  img: {
+    height: 'auto',
+    width: '100%',
+  },
 }));
 
 const Intro = () => {
@@ -80,70 +90,23 @@ const Intro = () => {
     <>
       {/* 1페이지 */}
       <Parallax filter image={require('../../assets/img/welcome-bg1.jpg')}>
-        <div className={classes.container}>
-          <Grid container justify="center">
-            <Grid item xs={12} sm={12} lg={12}>
-              <div className={classes.box}>
-                <Typography className={classes.slogan} variant="h1">
-                  입시의 모든것을 해결하다
-                </Typography>
-              </div>
-            </Grid>
-            <Grid item xs={12} sm={12} lg={6}>
-              <div className={classes.subLogo}></div>
-            </Grid>
+        <Grid container className={classes.container}>
+          <Grid item xs={12} sm={12} md={6} lg={6}>
+            <Typography variant="h1" className={classes.title}>
+              입시의 <br></br>모든 것을 해결하다
+            </Typography>
           </Grid>
-          <Grid container justify="center" spacing={3}>
-            <Grid item xs={12} sm={12} lg={12}>
-              <Typography variant="h2" className={classes.subtitle}>
-                당신의 <strong>대학</strong>을 가고자 하는 <strong>멘티</strong>
-                를 만나 주세요
-              </Typography>
-              <Typography variant="h4" className={classes.subtitle}>
-                주식회사 <strong>Linker</strong>에서 멘토링/과외 활동에 참여할
-                20학번 신입생, 19학번 재학생을 찾습니다!
-              </Typography>
-              <Typography variant="h4">
-                입시최강 서비스 링커에서 멘토분들을 사전 등록하는 행사를
-                진행합니다.
-              </Typography>
-
-              <div className={classes.goDetail}>
-                <Typography variant="body1" style={{ color: '#fff' }}>
-                  자세히 보기
-                </Typography>
-                <Typography variant="body1">
-                  <IconButton>
-                    <DoubleArrowIcon
-                      className={classes.arrowIcon}
-                      fontSize="large"
-                      style={{ fontSize: 60, color: '#fff' }}
-                    ></DoubleArrowIcon>
-                  </IconButton>
-                </Typography>
-              </div>
-            </Grid>
-          </Grid>
-        </div>
+        </Grid>
       </Parallax>
 
       {/* 2페이지 */}
       <Parallax filter image={require('../../assets/img/welcome-bg2.jpg')}>
         <div className={classes.container}>
-          <Grid container direction="row" justify="center" alignItems="stretch">
-            <Grid item xs={12} sm={12} lg={12}>
-              <Typography variant="h2" className={classes.subtitle2}>
-                정보의 불균형을 해소하는 사람들
-              </Typography>
-              <Typography variant="h4" className={classes.subtitle}>
-                주식회사 링커는 Linker 서비스를 통해 멘토와 멘티를 연결하고
-                서로에게 필요한 정보를 공유하는 플랫폼을 만드는 회사입니다.{' '}
-                <br></br>
-                입시과정의 정보 불균형을 해소하고자 큰 뜻을 품은 사람들이 모인
-                회사 입니다.
-              </Typography>
-            </Grid>
-          </Grid>
+          <img
+            src="/img/home/section-02.png"
+            className={classes.img}
+            alt="step1"
+          />
         </div>
       </Parallax>
 

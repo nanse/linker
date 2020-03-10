@@ -29,22 +29,24 @@ const GuidePage = () => {
         >
           {/* 1 ~ 3 */}
           <Grid item xs={12} sm={12} md={6}>
-            <img
-              src="/img/guide/step-1.png"
-              className={classes.img}
-              alt="step1"
-            ></img>
+            <a href="https://www.neis.go.kr/" target="_blank">
+              <img
+                src="/img/guide/step-1.jpg"
+                className={classes.img}
+                alt="step1"
+              />
+            </a>
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <img
-              src="/img/guide/step-2.png"
+              src="/img/guide/step-2.jpg"
               className={classes.img}
               alt="step2"
             ></img>
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <img
-              src="/img/guide/step-3.png"
+              src="/img/guide/step-3.jpg"
               className={classes.img}
               alt="step3"
             ></img>
@@ -53,21 +55,21 @@ const GuidePage = () => {
           {/* 4 ~ 6 */}
           <Grid item xs={12} sm={12} md={6}>
             <img
-              src="/img/guide/step-4.png"
+              src="/img/guide/step-4.jpg"
               className={classes.img}
               alt="step4"
             ></img>
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <img
-              src="/img/guide/step-5.png"
+              src="/img/guide/step-5.jpg"
               className={classes.img}
               alt="step5"
             ></img>
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <img
-              src="/img/guide/step-6.png"
+              src="/img/guide/step-6.jpg"
               className={classes.img}
               alt="step6"
             ></img>
@@ -76,28 +78,28 @@ const GuidePage = () => {
           {/* 7 ~ 10 */}
           <Grid item xs={12} sm={12} md={6}>
             <img
-              src="/img/guide/step-7.png"
+              src="/img/guide/step-7.jpg"
               className={classes.img}
               alt="step7"
             ></img>
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <img
-              src="/img/guide/step-8.png"
+              src="/img/guide/step-8.jpg"
               className={classes.img}
               alt="step8"
             ></img>
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <img
-              src="/img/guide/step-9.png"
+              src="/img/guide/step-9.jpg"
               className={classes.img}
               alt="step9"
             ></img>
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <img
-              src="/img/guide/step-10.png"
+              src="/img/guide/step-10.jpg"
               className={classes.img}
               alt="step10"
             ></img>

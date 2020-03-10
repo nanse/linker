@@ -1,4 +1,4 @@
-import { title } from '../../material-kit-react.js';
+import { title } from '../../../material-kit-react.js';
 
 const productStyle = {
   section: {
@@ -14,6 +14,7 @@ const productStyle = {
   },
   description: {
     color: '#999',
+    fontWeight: 400,
   },
 };
 
