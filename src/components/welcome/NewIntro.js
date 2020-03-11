@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
 export default function LandingPage(props) {
   const classes = useStyles();
   return (
-    <div>
+    <div style={{ backgroundColor: '#2a2a2a' }}>
       <img src="/img/main-mobile.jpg" className={classes.img} alt="main"></img>
     </div>
   );
