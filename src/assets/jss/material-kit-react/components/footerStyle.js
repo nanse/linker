@@ -2,7 +2,7 @@ const footerStyle = {
   footer: {
     padding: '16px',
     textAlign: 'center',
-    backgroundColor: '#2a2a2a',
+    backgroundColor: '#000000',
     '& > *': { color: '#e9e9e9' },
   },
   marginTop: {

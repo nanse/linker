@@ -1,9 +1,12 @@
 import React from 'react';
-
-import { Grid } from '@material-ui/core';
+import { useTheme } from '@material-ui/styles';
+import { useMediaQuery } from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 import UploadLayout from '../components/Layouts/Upload/UploadLayout';
+import BannerPc from '../components/Banner/BannerPc';
+import BannerMobile from '../components/Banner/BannerMobile';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -12,13 +15,34 @@ const useStyles = makeStyles(theme => ({
   img: {
     height: 'auto',
     width: '100%',
+    maxWidth: '1200px',
+  },
+  button: {
+    margin: theme.spacing(3),
   },
 }));
 
 const GuidePage = () => {
   const classes = useStyles();
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
+    defaultMatches: true,
+  });
   return (
     <UploadLayout isParallax={false}>
+      {isDesktop ? <BannerPc></BannerPc> : <BannerMobile></BannerMobile>}
+      <div style={{ textAlign: 'center' }}>
+        <Button
+          variant="contained"
+          color="secondary"
+          size="large"
+          href="https://d1kyxr8j5cxx49.cloudfront.net/data/%EB%A7%81%EC%BB%A4%EB%A9%98%ED%86%A0%ED%95%A9%EA%B2%A9%EC%88%98%EA%B8%B0%EC%96%91%EC%8B%9D.docx"
+          target="_blank"
+          className={classes.button}
+        >
+          합격수기 템플릿 다운로드
+        </Button>
+      </div>
       <div className={classes.root}>
         <Grid
           container

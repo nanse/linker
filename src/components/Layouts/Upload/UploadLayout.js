@@ -12,7 +12,6 @@ import ScrollToTop from '../../common/ScrollToTop';
 import Footer from '../../Footer/Footer';
 const useStyles = makeStyles(theme => ({
   content: {
-    backgroundColor: '#2a2a2a',
     marginTop: 64,
     [theme.breakpoints.down('md')]: {
       marginTop: 56,
