@@ -7,7 +7,7 @@ import UploadLayout from '../components/Layouts/Upload/UploadLayout';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(5),
   },
   img: {
     height: 'auto',

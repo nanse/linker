@@ -63,7 +63,7 @@ const Topbar = props => {
           className={clsx(classes.buttonOutlined)}
           href="/guide"
         >
-          생기부 발급방법
+          이벤트 참여방법
         </Button>
         {isLogin ? (
           <>

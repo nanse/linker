@@ -18,7 +18,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Helmet>
-        <title>생기부 사전 업로드 : Linker</title>
+        <title>입시의 모든 것을 해결하다 : Linker</title>
       </Helmet>
       <Route component={ChatPage} path={'/chat'} />
       <Route component={LoginPage} path="/login" />
